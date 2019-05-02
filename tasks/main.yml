@@ -1,0 +1,69 @@
+---
+- name: "Install NodeJS 10.x repository release package from NodeSource"
+  yum:
+    name: https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+    state: installed
+
+- name: "Install nodejs and npm packages"
+  yum:
+    name: "{{ item }}"
+    state: installed
+  loop:
+    - nodejs
+    - npm
+
+- name: "Enaure a local speckle group exists"
+  group:
+    name: speckle
+    state: present
+
+- name: "Ensure that a local speckle user exists with appropriate settings"
+  user:
+    name: speckle
+    state: present
+    group: speckle
+    create_home: true
+    home: /home/speckle/
+    comment: "Speckleserver service user"
+    shell: "/bin/bash"
+
+- name: "Ensure that the speckleserver subdirectory exists"
+  file:
+    path: /home/speckle/speckleserver
+    state: directory
+    owner: speckle
+    group: speckle
+    mode: 0755
+
+- name: "Get the current speckleserver code from github"
+  git:
+    repo: https://github.com/speckleworks/SpeckleServer.git
+    dest: /home/speckle/speckleserver/
+    version: HEAD
+    update: no
+
+- name: "Install the SpeckleAdmin plugin into the speckleserver plugins directory"
+  git:
+    repo: https://github.com/speckleworks/SpeckleAdmin.git
+    dest: /home/speckle/speckleserver/plugins/speckleadmin
+    update: no
+
+- name: "Install the application's required libraries via npm"
+  npm:
+    path: /home/speckle/speckleserver
+
+- name: "Configure the speckleserver instance via .env file"
+  template:
+    src: templates/speckleserver-env.j2
+    dest: /home/speckle/speckleserver/.env
+    owner: "speckle"
+    group: "speckle"
+    mode: "0644"
+
+- name: "Create a systemd unit service file for Speckleserver"
+  copy:
+    src: files/speckleserver.service
+    dest: /usr/lib/systemd/system/speckleserver.service
+    owner: root
+    group: root
+    mode: 0750

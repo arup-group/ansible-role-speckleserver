@@ -1,0 +1,11 @@
+---
+
+# For use with pre-commit.
+# See usage instructions at http://pre-commit.com
+
+repos:
+- repo: https://github.com/ansible/ansible-lint.git
+  rev: v3.5.1
+  hooks:
+    - id: ansible-lint
+      files: \.(yaml|yml)$

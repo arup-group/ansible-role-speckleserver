@@ -1,0 +1,63 @@
+# This is a base file for configuring the speckle server. Steps:
+# 2. Copy it to .env ( `cp .env-base .env`)
+# 2. Configure the .env file with your settings.
+# 3. Start the speckle server!
+#
+# NOTE: If these are set through a different process, eg docker, pm2, or command line
+# they will not be overwritten.
+
+# SERVER_NAME: The server name is important, as it will help users differentiate
+# between multiple accounts.
+SERVER_NAME="{{ speckleserver_server_name }}"
+
+# CANONICAL_URL: The url address (if you have any) where this server exists. For example,
+# a canonical url can be "https://hestia.speckle.works". Leave blank otherwise.
+CANONICAL_URL="{{ speckleserver_url }}"
+
+# PUBLIC_STREAMS: Wether all streams created should be public (true) or private (false)
+# by default.
+PUBLIC_STREAMS={{ speckleserver_public_streams | true }}
+
+# PLUGIN_DIRS: Dirs to scan for speckle plugins (comma separated). For example, if you install
+# some other modules in `./test` and `./wonderful`, you could use PLUGIN_DIRS="./test,./wonderful"
+PLUGIN_DIRS="./node_modules/@speckle,./plugins"
+
+# PORT: The port you want the speckle server to run on. Make sure the port is accesible
+# if you have any firewalls set up (ie, ufw).
+PORT={{ speckleserver_port | 3000 }}
+
+# IP: The ip to listen to
+# Defaults to all IPs bound to this machine, and all IPv6 IPs if IPv6 is enabled. 
+# If you want to bind to IPv4 only, or a specific IPv6/v4 address, uncomment the line below and specifiy your preferred address.
+IP={{speckleserver_listen_ip | 127.0.0.1 }}
+
+# MAX_PROC: The maximum amount of service workers to start. If this is not specified,
+# Speckle will fork out as many as the machine's processor cores. To specify it,
+# just uncomment the line below.
+# MAX_PROC=2
+
+# REQ_SIZE: The request size protects your server from being flooded with too much data.
+REQ_SIZE=10mb
+
+# This is used in the encryption of the api access tokens.
+# Please change it to something random!
+SESSION_SECRET="{{ speckleserver_session_secret }}"
+
+# DBs
+# Mongodb URI: this is the uri string that the server will use to connect to your mongo instance.
+# The default string below will work with an out-of-the-box local mongodb deployment.
+# For more info, see: https://docs.mongodb.com/manual/reference/connection-string/
+MONGODB_URI="{{ speckleserver_mongodb_uri | mongodb://localhost:27017 }}"
+
+# Redis URI: this is the uri string that the server will use to connect to your redis instance.
+# The default string should work with an out-of-the-box local redis deployment.
+# For more info, see http://www.iana.org/assignments/uri-schemes/prov/redis
+REDIS_URL="redis://{{ speckleserver_redis_host | localhost }}:{{ speckleserver_redis_port | 6379 }}"
+
+# If you want your api calls to return pretty json, set this to true. It will cause
+# the reponses to be ±10% bigger.
+INDENT_RESPONSES=false
+
+# If you want user email addresses to be publicly visible, set this to true. Not recommended for
+# public instances.
+EXPOSE_EMAILS=false
