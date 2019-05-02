@@ -1,7 +1,7 @@
-Role Name
-=========
+speckleServer
+=============
 
-This role installs the SpeckleServer, a design and AEC
+This role installs SpeckleServer, a design and AEC data communication and collaboration platform.
 
 Requirements
 ------------
@@ -33,9 +33,18 @@ speckleserver\_redis\_port: Redis port (default 6379)
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in
-regards to parameters that may need to be set for other roles, or variables that
-are used from other roles.
+There are no hard requirements as such aside a webserver to proxy the application traffic.
+
+I would strongly suggest running this alongside a webservice role such as Jeff
+Geerling's Apache module (geerlingguy.apache) or NGINX Inc's nginx module (nginxinc.nginx)
+
+Let's Encrypt's Certbot is also useful if you need SSL/TLS security on a public-facing instance (again,
+consider geerlingguy.certbot from Jeff Geerling)
+
+Testing
+-------
+
+A test suite with molecule is in development.
 
 Example Playbook
 ----------------
@@ -43,10 +52,10 @@ Example Playbook
       roles:
          - { role: ansible-role-speckleserver  }
       vars:
-        speckleserver\_server\_name: 'SpeckleServer Development Environment'
-        speckleserver\_url: 'http://speckle.example.com'
-        speckleserver\_mongodb\_uri: 'mongodb://mongo.example.com:27017/speckle'
-        speckleserver\_redis\_host: 'redis.example.com'
+        speckleserver_server_name: 'SpeckleServer Development Environment'
+        speckleserver_url: 'http://speckle.example.com'
+        speckleserver_mongodb_uri: 'mongodb://mongo.example.com:27017/speckle'
+        speckleserver_redis_host: 'redis.example.com'
 
 License
 -------
