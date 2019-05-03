@@ -1,3 +1,4 @@
- - hosts: localhost
-   roles:
-     - { role: ansible-role-speckleserver }
+---
+- hosts: localhost
+  roles:
+    - { role: ansible-role-speckleserver }

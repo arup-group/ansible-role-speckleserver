@@ -34,42 +34,39 @@
 
 - name: "Get release info for Speckleserver from github"
   uri:
-     url: https://api.github.com/repos/speckleworks/SpeckleServer/releases/tags/v{{ speckleserver_version }}
-     return_content: true
+    url: https://api.github.com/repos/speckleworks/SpeckleServer/releases/tags/v{{ speckleserver_version }}
+    return_content: true
   register: speckleserver_github
   when: speckleserver_version != "latest"
 
-- name: "Get release info for Speckleserver from github"
-  uri:
-     url: https://api.github.com/repos/speckleworks/SpeckleAdmin/releases/tags/v{{ speckleadmin_version }}
-     return_content: true
-  register: speckleadmin_github
-  when: speckleadmin_version != "latest"
-
 - name: "Get release info for Speckleserver from github (latest)"
   uri:
-     url: "https://api.github.com/repos/speckleworks/SpeckleServer/releases/latest"
-     return_content: true
+    url: "https://api.github.com/repos/speckleworks/SpeckleServer/releases/latest"
+    return_content: true
   register: speckleserver_github
   when: speckleserver_version == "latest"
 
-- name: "Get release info for Speckleserver from github (latest)"
-  uri:
-     url: "https://api.github.com/repos/speckleworks/SpeckleAdmin/releases/latest"
-     return_content: true
-  register: speckleadmin_github
-  when: speckleadmin_version == "latest"
+- name: "Version of Speckleserver we are requesting"
+  debug:
+    var: speckleserver_version
 
-- name: "Get the speckleserver tarball from github and install it"
-  git:
+- name: "Tarball URL from Github for the SpeckleServer archiv we want"
+  debug:
+    var: speckleserver_github.json.tarball_url
+
+- name: "Install the SpeckleServer application codebase"
+  unarchive:
     src: "{{ speckleserver_github.json.tarball_url }}"
     dest: /home/speckle/speckleserver/
+    owner: speckle
+    group: speckle
     remote_src: yes
+    extra_opts: [ --strip-components=1 ]
 
-- name: "Install the SpeckleAdmin plugin into the speckleserver plugins directory"
+- name: "Install the SpeckleAdmin plugin to the plugins subdirectory"
   unarchive:
-    src: "{{ speckleadminr_github.json.tarball_url }}"
-    dest: /home/speckle/speckleserver/plugins/
+    src: "https://codeload.github.com/speckleworks/SpeckleAdmin/tar.gz/v{{ speckleadmin_version }}"
+    dest: "/home/speckle/speckleserver/plugins/"
     remote_src: yes
 
 - name: "Install the application's required libraries via npm"
@@ -80,9 +77,9 @@
   template:
     src: templates/speckleserver-env.j2
     dest: /home/speckle/speckleserver/.env
-    owner: "speckle"
-    group: "speckle"
-    mode: "0644"
+    owner: speckle
+    group: speckle
+    mode: 0644
 
 - name: "Create a systemd unit service file for Speckleserver"
   copy:
@@ -95,5 +92,5 @@
 - name: "Enable and start the Speckleserver service"
   service:
     name: speckleserver
-    enable: true
-    state: running
+    enabled: true
+    state: started

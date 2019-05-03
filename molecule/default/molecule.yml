@@ -11,9 +11,9 @@ platforms:
     image: centos/systemd
     command: /sbin/init
     capabilities:
-        - SYS_ADMIN
+      - SYS_ADMIN
     volumes:
-        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
   lint:
