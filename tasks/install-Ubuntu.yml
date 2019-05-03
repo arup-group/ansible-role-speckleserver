@@ -1,0 +1,16 @@
+---
+- name: "Install NodeJS 10.x repository info from NodeSource (Ubuntu)"
+  apt_repository:
+    repo: |
+      https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
+    state: installed
+
+- name: "Import NodeJS APT/DEB signing key"
+  apt_key:
+    key: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: "Install nodejs 10.x package"
+  apt:
+    name: nodejs
+    state: installed

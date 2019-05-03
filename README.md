@@ -9,6 +9,14 @@ Requirements
 This is primarily designed to run on a Linux host, with a Redis cache and MongoDB NoSQL database.
 These can be provided externally (for instance in AWS or other cloud providers) or via other Ansible roles.
 
+Supported Operating Systems
+---------------------------
+
+- Red Hat Enterprise 7 (including CentOS 7)
+- Ubuntu LTS 16.04 ("xenial") and 18.04 ("bionic")
+- Amazon Linux 2
+- Debian 8 ("jessie") and 9 ("stretch")
+
 Role Variables
 --------------
 
@@ -45,16 +53,18 @@ Geerling's Apache module (geerlingguy.apache) or NGINX Inc's nginx module (nginx
 Let's Encrypt's Certbot is also useful if you need SSL/TLS security on a public-facing instance (again,
 consider geerlingguy.certbot from Jeff Geerling)
 
-Testing
--------
+Testing / Development
+---------------------
 
-A test suite with molecule is in development.
+A molecule test suite is provided. 
+
+You will need a local Docker setup and themolecule test suite (https://molecule.readthedocs.io/en/stable/index.html) installed via pip ('''pip install --user molecule''').
+You will also need a functional Ansible setup of course :D
 
 TODO
 ----
 
-* Debian / Ubuntu support.
-* Update meta.yml to indicate Amazon Linux 2 support (EL variant for all intents and purposes)
+More idempotency and upgrade checks and tests.
 
 Example Playbook
 ----------------
@@ -66,6 +76,8 @@ Example Playbook
         speckleserver_url: 'http://speckle.example.com'
         speckleserver_mongodb_uri: 'mongodb://mongo.example.com:27017/speckle'
         speckleserver_redis_host: 'redis.example.com'
+        speckleserver_version: "1.5.2"
+        speckleadmin_version: "0.2.11"
 
 License
 -------

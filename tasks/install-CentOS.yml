@@ -1,0 +1,16 @@
+---
+- name: "Install NodeJS 10.x repository (CentOS)"
+  yum:
+    name: |
+      https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+    state: installed
+
+- name: "Import NodeJS RPM signing key into the RPM database"
+  rpm_key:
+    key: /etc/pki/rpm-gpg/NODESOURCE-GPG-SIGNING-KEY-EL
+    state: present
+
+- name: "Install nodejs 10.x package"
+  yum:
+    name: nodejs
+    state: installed

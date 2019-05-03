@@ -1,13 +1,9 @@
 ---
-- name: "Install NodeJS 10.x repository release package from NodeSource"
-  yum:
-    name: https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
-    state: installed
-
-- name: "Install nodejs 10.x package"
-  yum:
-    name: nodejs
-    state: installed
+- name: "Install NodeJS official repositories and packages"
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - install-{{ ansible_distribution }}.yml
+    - install-{{ ansible_os_family }}.yml
 
 - name: "Enaure a local speckle group exists"
   group:
@@ -34,7 +30,8 @@
 
 - name: "Get release info for Speckleserver from github"
   uri:
-    url: https://api.github.com/repos/speckleworks/SpeckleServer/releases/tags/v{{ speckleserver_version }}
+    url: |
+      https://api.github.com/repos/speckleworks/SpeckleServer/releases/tags/v{{ speckleserver_version }}
     return_content: true
   register: speckleserver_github
   when: speckleserver_version != "latest"
@@ -50,7 +47,7 @@
   debug:
     var: speckleserver_version
 
-- name: "Tarball URL from Github for the SpeckleServer archiv we want"
+- name: "Tarball URL from Github for the SpeckleServer archive we want"
   debug:
     var: speckleserver_github.json.tarball_url
 
@@ -65,7 +62,8 @@
 
 - name: "Install the SpeckleAdmin plugin to the plugins subdirectory"
   unarchive:
-    src: "https://codeload.github.com/speckleworks/SpeckleAdmin/tar.gz/v{{ speckleadmin_version }}"
+    src: |
+      https://codeload.github.com/speckleworks/SpeckleAdmin/tar.gz/v{{ speckleadmin_version }}
     dest: "/home/speckle/speckleserver/plugins/"
     remote_src: yes
 
@@ -80,6 +78,8 @@
     owner: speckle
     group: speckle
     mode: 0644
+  notify:
+    - "Restart SpeckleServer"
 
 - name: "Create a systemd unit service file for Speckleserver"
   copy:
