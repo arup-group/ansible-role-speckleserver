@@ -4,13 +4,10 @@
     name: https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
     state: installed
 
-- name: "Install nodejs and npm packages"
+- name: "Install nodejs 10.x package"
   yum:
-    name: "{{ item }}"
+    name: nodejs
     state: installed
-  loop:
-    - nodejs
-    - npm
 
 - name: "Enaure a local speckle group exists"
   group:
