@@ -94,3 +94,9 @@
     owner: root
     group: root
     mode: 0750
+
+- name: "Enable and start the Speckleserver service"
+  service:
+    name: speckleserver
+    enable: true
+    state: running

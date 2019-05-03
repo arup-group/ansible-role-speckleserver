@@ -1,0 +1,15 @@
+[Unit]
+Description=SpeckleServer
+
+[Service]
+WorkingDirectory=/home/speckle/speckleserver/
+ExecStart=/bin/node server.js
+Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=speckleserver
+User=speckle
+Group=speckle
+
+[Install]
+WantedBy=multi-user.target
