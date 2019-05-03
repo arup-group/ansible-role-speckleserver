@@ -46,6 +46,12 @@ Testing
 
 A test suite with molecule is in development.
 
+TODO
+----
+
+* Debian / Ubuntu support.
+* Update meta.yml to indicate Amazon Linux 2 support (EL variant for all intents and purposes)
+
 Example Playbook
 ----------------
     - hosts: servers

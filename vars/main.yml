@@ -1,4 +1,6 @@
 ---
+speckleserver_version: latest
+speckleadmin_version: latest
 speckleserver_redis_host: "localhost"
 speckleserver_server_name: "Test SpeckleServer Please Ignore"
 speckleserver_url: "http://localhost/"

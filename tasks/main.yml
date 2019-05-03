@@ -35,22 +35,49 @@
     group: speckle
     mode: 0755
 
-- name: "Get the current speckleserver code from github"
+- name: "Get release info for Speckleserver from github"
+  uri:
+     url: https://api.github.com/repos/speckleworks/SpeckleServer/releases/tags/v{{ speckleserver_version }}
+     return_content: true
+  register: speckleserver_github
+  when: speckleserver_version != "latest"
+
+- name: "Get release info for Speckleserver from github"
+  uri:
+     url: https://api.github.com/repos/speckleworks/SpeckleAdmin/releases/tags/v{{ speckleadmin_version }}
+     return_content: true
+  register: speckleadmin_github
+  when: speckleadmin_version != "latest"
+
+- name: "Get release info for Speckleserver from github (latest)"
+  uri:
+     url: "https://api.github.com/repos/speckleworks/SpeckleServer/releases/latest"
+     return_content: true
+  register: speckleserver_github
+  when: speckleserver_version == "latest"
+
+- name: "Get release info for Speckleserver from github (latest)"
+  uri:
+     url: "https://api.github.com/repos/speckleworks/SpeckleAdmin/releases/latest"
+     return_content: true
+  register: speckleadmin_github
+  when: speckleadmin_version == "latest"
+
+- name: "Get the speckleserver tarball from github and install it"
   git:
-    repo: https://github.com/speckleworks/SpeckleServer.git
+    src: "{{ speckleserver_github.json.tarball_url }}"
     dest: /home/speckle/speckleserver/
-    version: HEAD
-    update: no
+    remote_src: yes
 
 - name: "Install the SpeckleAdmin plugin into the speckleserver plugins directory"
-  git:
-    repo: https://github.com/speckleworks/SpeckleAdmin.git
-    dest: /home/speckle/speckleserver/plugins/speckleadmin
-    update: no
+  unarchive:
+    src: "{{ speckleadminr_github.json.tarball_url }}"
+    dest: /home/speckle/speckleserver/plugins/
+    remote_src: yes
 
 - name: "Install the application's required libraries via npm"
   npm:
-    path: /home/speckle/speckleserver
+    path: /home/speckle/speckleserver/
 
 - name: "Configure the speckleserver instance via .env file"
   template:
