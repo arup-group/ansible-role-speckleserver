@@ -12,6 +12,10 @@ These can be provided externally (for instance in AWS or other cloud providers) 
 Role Variables
 --------------
 
+speckleserver\_version: Version of SpeckleServer to download and install. Can be a numbered version in major.minor.micro format or "latest" (default: latest)
+
+speckleadmin\_version: Version of the SpeckleAdmin plugin to download and install. Can be a numbered version in major.minor.micro format or "latest" (default: latest)
+
 speckleserver\_server\_name: A name for this SpeckleServer instance.
 
 speckleserver\_url: The canonical web URL for this SpeckleServer instance (default: http://localhost/)
