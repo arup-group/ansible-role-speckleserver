@@ -22,7 +22,7 @@ Role Variables
 
 speckleserver\_version: Version of SpeckleServer to download and install. Can be a numbered version in major.minor.micro format or "latest" (default: latest)
 
-speckleadmin\_version: Version of the SpeckleAdmin plugin to download and install. Can be a numbered version in major.minor.micro format or "latest" (default: latest)
+speckleadmin\_version: Version of the SpeckleAdmin plugin to download and install. Can be a numbered version in major.minor.micro format
 
 speckleserver\_server\_name: A name for this SpeckleServer instance.
 
@@ -52,6 +52,9 @@ Geerling's Apache module (geerlingguy.apache) or NGINX Inc's nginx module (nginx
 
 Let's Encrypt's Certbot is also useful if you need SSL/TLS security on a public-facing instance (again,
 consider geerlingguy.certbot from Jeff Geerling)
+
+If you need a MongoDB instance alongside this, I'd recommend undergreen.mongodb(covers RHEL/CentOS as well as Debian/Ubuntu).
+This is particularly useful in AWS regions where DocumentDB is not available.
 
 Testing / Development
 ---------------------

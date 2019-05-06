@@ -1,0 +1,53 @@
+2019-05-03  Michael Fleming <michael.fleming@arup.com>
+
+	* .gitignore, README.md, meta/main.yml, tasks/install-Amazon.yml,
+	tasks/install-CentOS.yml, tasks/install-Debian.yml,
+	tasks/install-RedHat.yml, tasks/install-Ubuntu.yml, tasks/main.yml: 
+	1.0.0 - functional, supports Amazon and Debian/Ubuntu, tests pass
+	without issue.
+
+2019-05-03  Michael Fleming <michael.fleming@arup.com>
+
+	* .pre-commit-config.yaml, defaults/main.yml,
+	molecule/default/molecule.yml, molecule/default/requirements.yml,
+	site.yml, tasks/main.yml, templates/speckleserver-env.j2: Major
+	reworking - now functional, all tests passing.  Test frameworks fleshed out - run "molecule test" to run the test
+	cases.
+
+2019-05-03  Michael Fleming <michael.fleming@arup.com>
+
+	* defaults/main.yml, molecule/default/molecule.yml,
+	molecule/default/playbook.yml, molecule/default/requirements.yml,
+	tasks/main.yml, vars/main.yml: - Remove requirement to install npm package as Nodesource nodejs
+	package includes it.  - Add testing dependencies
+
+2019-05-03  Michael Fleming <michael.fleming@arup.com>
+
+	* files/speckleserver.service, meta/main.yml, tasks/main.yml: Add a
+	systemd service unit
+
+2019-05-03  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Add new vars to documentation
+
+2019-05-03  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md, tasks/main.yml, vars/main.yml: Update readme Add some API-fu to pull the latest / versioned tarball from GitHub
+	and install automagically.
+
+2019-05-02  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: More documentation
+
+2019-05-02  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Documentation upgrade
+
+2019-05-02  Michael Fleming <michael.fleming@arup.com>
+
+	* vars/main.yml: Add variables
+
+2019-05-02  Michael Fleming <michael.fleming@arup.com>
+
+	* Initial import.
+
