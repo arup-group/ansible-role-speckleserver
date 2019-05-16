@@ -66,7 +66,7 @@ How to run
 
 Ensure you have Ansible set up on your machine appropriately and the role is unpacked in a directory listed in roles_path
 
-A playbook for setting up with nginx is provided (`speckleserver-with-nginx-playbook.yml)` is provided.
+A playbook for setting up with nginx is provided [speckleserver-with-nginx-playbook.yml](speckleserver-with-nginx-playbook.yml).
 
 Copy this to a new file eg. site-speckle.yml; tune the vars as required.
 
