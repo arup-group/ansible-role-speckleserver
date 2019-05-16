@@ -101,6 +101,7 @@ Example Playbook
 ----------------
     - hosts: servers
       become: yes
+      become_method: sudo
       become_user: root
       roles:
          - { role: ansible-role-speckleserver  }
