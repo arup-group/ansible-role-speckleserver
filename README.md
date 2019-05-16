@@ -1,5 +1,8 @@
-speckleServer
-=============
+Ansible SpeckleServer Role
+==========================
+
+ansible-role-speckleserver
+--------------------------
 
 This role installs SpeckleServer, a design and AEC data communication and collaboration platform.
 
