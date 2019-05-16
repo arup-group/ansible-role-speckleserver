@@ -48,24 +48,26 @@ Dependencies
 There are no hard requirements as such aside a webserver to proxy the application traffic.
 
 I would strongly suggest running this alongside a webservice role such as Jeff
-Geerling's Apache module (geerlingguy.apache) or NGINX Inc's nginx module (nginxinc.nginx)
+Geerling's Apache module (`geerlingguy.apache`) or NGINX Inc's nginx module (`nginxinc.nginx`)
 
 Let's Encrypt's Certbot is also useful if you need SSL/TLS security on a public-facing instance (again,
-consider geerlingguy.certbot from Jeff Geerling)
+consider `geerlingguy.certbot` from Jeff Geerling)
 
-If you need a MongoDB instance alongside this, I'd recommend undergreen.mongodb(covers RHEL/CentOS as well as Debian/Ubuntu).
+If you need a MongoDB instance alongside this, I'd recommend `undergreen.mongodb` ( covers RHEL/CentOS as well as Debian/Ubuntu).
 This is particularly useful in AWS regions where DocumentDB is not available.
+
+These are all easily installable via the `ansible-galaxy` command (part of the base Ansible package) - eg. `ansible-galaxy install geerlingguy.nginx`
 
 How to run
 ----------
 
 Ensure you have Ansible set up on your machine appropriately and the role is unpacked in a directory listed in roles_path
 
-A playbook for setting up with nginx is provided (speckleserver-with-nginx-playbook.yml) is provided.
+A playbook for setting up with nginx is provided (`speckleserver-with-nginx-playbook.yml)` is provided.
 
 Copy this to a new file eg. site-speckle.yml; tune the vars as required.
 
-** Hosts / Virtual hosts in this playbook are only given as placeholders and will not work out-of-the-box **
+__WARNING: Hosts / Virtual hosts in this playbook are only given as placeholders and will not work out-of-the-box. Customise them before running the playbook!__
 
 Note: You can also cut and drop the vars: stanza into group_vars/ or host_vars as you require.
 
@@ -75,6 +77,7 @@ Test the playbook
 
 If it retrurns OK, run the play
 
+    ansible-playbook site-speckle.yml
 
 Testing / Development
 ---------------------
