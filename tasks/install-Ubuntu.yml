@@ -3,7 +3,7 @@
   apt_repository:
     repo: |
       https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
-    state: installed
+    state: present
 
 - name: "Import NodeJS APT/DEB signing key"
   apt_key:
@@ -13,4 +13,4 @@
 - name: "Install nodejs 10.x package"
   apt:
     name: nodejs
-    state: installed
+    state: present

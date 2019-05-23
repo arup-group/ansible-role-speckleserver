@@ -24,15 +24,17 @@
   stat:
     path: /home/speckle/speckleserver/
   register: legacy_specklepath
-  tag: migrate
+  tags:
+    - migrate
 
 - name: "MIGRATE: Move unversioned speckle app dir to a versioned one"
-  shell: "mv /home/speckle/speckleserver/ /home/speckle/speckleserver-{{ speckleserver_version }}"
+  command: "mv /home/speckle/speckleserver/ /home/speckle/speckleserver-{{ speckleserver_version }}"
   args:
     creates: "/home/speckle/speckleserver-{{ speckleserver_version }}"
-    removes:  "/home/speckle/speckleserver"
+    removes: /home/speckle/speckleserver
   when: legacy_specklepath.stat.islnk is defined and legacy_specklepath.stat.islnk == False
-  tag: migrate
+  tags:
+    - migrate
 
 - name: "Ensure that the speckleserver subdirectory exists"
   file:
