@@ -20,13 +20,35 @@
     comment: "Speckleserver service user"
     shell: "/bin/bash"
 
+- name: "MIGRATE: Check we have an unversioned speckle app dir"
+  stat:
+    path: /home/speckle/speckleserver/
+  register: legacy_specklepath
+  tag: migrate
+
+- name: "MIGRATE: Move unversioned speckle app dir to a versioned one"
+  shell: "mv /home/speckle/speckleserver/ /home/speckle/speckleserver-{{ speckleserver_version }}"
+  args:
+    creates: "/home/speckle/speckleserver-{{ speckleserver_version }}"
+    removes:  "/home/speckle/speckleserver"
+  when: legacy_specklepath.stat.islnk is defined and legacy_specklepath.stat.islnk == False
+  tag: migrate
+
 - name: "Ensure that the speckleserver subdirectory exists"
   file:
-    path: /home/speckle/speckleserver
+    path: "/home/speckle/speckleserver-{{ speckleserver_version }}"
     state: directory
     owner: speckle
     group: speckle
     mode: 0755
+
+- name: "Symlink base application root dir to versioned app directory"
+  file:
+    src: "/home/speckle/speckleserver-{{ speckleserver_version }}"
+    dest: "/home/speckle/speckleserver/"
+    owner: speckle
+    group: speckle
+    state: link
 
 - name: "Get release info for Speckleserver from github"
   uri:
@@ -54,17 +76,18 @@
 - name: "Install the SpeckleServer application codebase"
   unarchive:
     src: "{{ speckleserver_github.json.tarball_url }}"
-    dest: /home/speckle/speckleserver/
+    dest: "/home/speckle/speckleserver-{{ speckleserver_version }}"
     owner: speckle
     group: speckle
     remote_src: yes
     extra_opts: [ --strip-components=1 ]
+    creates: "/home/speckle/speckleserver-{{ speckleserver_version }}/.env-base"
 
 - name: "Install the SpeckleAdmin plugin to the plugins subdirectory"
   unarchive:
     src: |
       https://codeload.github.com/speckleworks/SpeckleAdmin/tar.gz/v{{ speckleadmin_version }}
-    dest: "/home/speckle/speckleserver/plugins/"
+      dest: "/home/speckle/speckleserver-{{speckleserver_version}}/plugins/"
     remote_src: yes
 
 - name: "Install the application's required libraries via npm"
