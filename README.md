@@ -97,7 +97,14 @@ You will also need a functional Ansible setup of course :D
 
 If you wish to test cross-distro, pass a `MOLECULE_DISTRO` environment variable in your molecule command eg. `MOLECULE_DISTRO=ubuntu1804 molecule test`
 
-CentOS 7 (`centos7` - the default), Ubuntu Bionic 18.04 (ubuntu1804) and Debian 9 (debian9) are currently supported courtesy of Jeff Geerling's docker image collection)
+Supported distros for such testing, courtesy of Jeff Geerling's molecule-testing docker images:
+
+- CentOS 7 (`centos7` - the default)
+
+- Ubuntu Bionic LTS 18.04 / Xenial LTS 16.04 (`ubuntu1804` / `ubuntu1604`)
+
+- Debian 8 and 9 (`debian8` / `debian9`)
+
 
 TODO
 ----
