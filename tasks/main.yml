@@ -46,11 +46,18 @@
 
 - name: "Symlink base application root dir to versioned app directory"
   file:
-    src: "/home/speckle/speckleserver-{{ speckleserver_version }}"
-    dest: "/home/speckle/speckleserver/"
+    path: /home/speckle/speckleserver
+    src: "/home/speckle/speckleserver-{{ speckleserver_version }}/"
     owner: speckle
     group: speckle
     state: link
+
+- name: "Get release info for Speckleserver from github (latest)"
+  uri:
+    url: "https://api.github.com/repos/speckleworks/SpeckleServer/releases/latest"
+    return_content: true
+  register: speckleserver_github
+  when: speckleserver_version == "latest"
 
 - name: "Get release info for Speckleserver from github"
   uri:
@@ -59,13 +66,6 @@
     return_content: true
   register: speckleserver_github
   when: speckleserver_version != "latest"
-
-- name: "Get release info for Speckleserver from github (latest)"
-  uri:
-    url: "https://api.github.com/repos/speckleworks/SpeckleServer/releases/latest"
-    return_content: true
-  register: speckleserver_github
-  when: speckleserver_version == "latest"
 
 - name: "Version of Speckleserver we are requesting"
   debug:
@@ -89,7 +89,7 @@
   unarchive:
     src: |
       https://codeload.github.com/speckleworks/SpeckleAdmin/tar.gz/v{{ speckleadmin_version }}
-      dest: "/home/speckle/speckleserver-{{speckleserver_version}}/plugins/"
+    dest: "/home/speckle/speckleserver-{{speckleserver_version}}/plugins/"
     remote_src: yes
 
 - name: "Install the application's required libraries via npm"

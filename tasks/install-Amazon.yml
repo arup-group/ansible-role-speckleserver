@@ -9,6 +9,7 @@
     name: |
       https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
     state: present
+    disable_gpg_check: yes
 
 - name: "Install nodejs 10.x package"
   yum:
@@ -23,11 +24,13 @@
 - name: "Enable EPEL Repo"
   ini_file:
     path: /etc/yum.repos.d/epel.repo
+    section: epel
     option: enabled
     value: 1
 
 - name: "Ensure EPEL package signatures are checked"
   ini_file:
     path: /etc/yum.repos.d/epel.repo
+    section: epel
     option: gpgcheck
     value: 1
