@@ -1,16 +1,36 @@
 ---
+- name: "Import NodeJS RPM signing key into the RPM database"
+  rpm_key:
+    key: https://rpm.nodesource.com/pub/el/NODESOURCE-GPG-SIGNING-KEY-EL
+    state: present
+
 - name: "Install NodeJS 10.x repository (CentOS)"
   yum:
     name: |
       https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
-    state: installed
-
-- name: "Import NodeJS RPM signing key into the RPM database"
-  rpm_key:
-    key: /etc/pki/rpm-gpg/NODESOURCE-GPG-SIGNING-KEY-EL
     state: present
+    disable_gpg_check: yes
 
 - name: "Install nodejs 10.x package"
   yum:
     name: nodejs
-    state: installed
+    state: present
+
+- name: "Ensure EPEL repo package is installed"
+  yum:
+    name: epel-release
+    state: present
+
+- name: "Enable EPEL Repo"
+  ini_file:
+    path: /etc/yum.repos.d/epel.repo
+    section: epel
+    option: enabled
+    value: 1
+
+- name: "Ensure EPEL package signatures are checked"
+  ini_file:
+    path: /etc/yum.repos.d/epel.repo
+    section: epel
+    option: gpgcheck
+    value: 1

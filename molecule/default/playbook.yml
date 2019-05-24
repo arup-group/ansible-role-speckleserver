@@ -2,7 +2,6 @@
 - name: Converge
   hosts: all
   roles:
-    - role: geerlingguy.repo-epel
+    - role: ansible-role-speckleserver
     - role: geerlingguy.redis
     - role: undergreen.mongodb
-    - role: ansible-role-speckleserver
