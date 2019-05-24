@@ -45,6 +45,11 @@ Role Variables
 
 `speckleserver_redis_port`: Redis port (default `6379`)
 
+`speckleserver_pretty_json`: Pretty print API response output. Note that this makes the responses 10% larger. Boolean value, default is false`.
+
+`speckleserver_expose_emails`: Makes all user email addresses publicly visible. Not recommended for production. Boolean value, defaults to `false`.
+
+
 Dependencies
 ------------
 

@@ -1,3 +1,82 @@
+2019-05-24  Michael Fleming <michael.fleming@arup.com>
+
+	* : commit 3c9deb7940ddfb35aea16354df980de988b8f789 Author: Michael
+	Fleming <michael.fleming@arup.com> Date:   Fri May 24 14:28:15 2019
+	+1000
+
+2019-05-24  Michael Fleming <michael.fleming@arup.com>
+
+	* tasks/install-Amazon.yml, tasks/install-CentOS.yml,
+	tasks/install-RedHat.yml: Install the RPM package key first
+	otherwise hardened setups (STIG compliant w/gpgcheck enforced for
+	example) will complain loudly.
+
+2019-05-23  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Documentation - no need to escape underscores in md now
+
+2019-05-23  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Updated doco
+
+2019-05-23  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Updated doco
+
+2019-05-23  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Update documentation
+
+2019-05-23  Michael Fleming <michael.fleming@arup.com>
+
+	* molecule/default/molecule.yml, molecule/default/playbook.yml,
+	tasks/install-Amazon.yml, tasks/install-CentOS.yml,
+	tasks/install-Debian.yml, tasks/install-RedHat.yml,
+	tasks/install-Ubuntu.yml, tasks/main.yml: - Move away from using geerlingguy.repo-epel on CentOS / RedHat as
+	we can get epel-release directly - Use Jeff Geerling's prefab Docker images for Molecule testing.
+	This allows cross-platform testing via MOLECULE_DISTRO environment
+	variable.  - Add migration from unversioned directory to versioned; this allows
+	for rollbacks and in-place(ish) upgrades.
+
+2019-05-23  Michael Fleming <michael.fleming@arup.com>
+
+	* tasks/main.yml: Add means of rolling back/upgrading in place, with
+	automatic migration capability for older installs.
+
+2019-05-23  Michael Fleming <michael.fleming@arup.com>
+
+	* : Add PDF doc
+
+2019-05-16  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Linking to the playbook in markdown was a bad idea
+
+2019-05-16  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: More doco
+
+2019-05-16  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: More doco
+
+2019-05-16  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Fix the playbook example to add sensible become_method
+
+2019-05-16  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: More documentation updates.
+
+2019-05-16  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md, site.yml, speckle-with-nginx-playbook.yml: Add a
+	playbook for setting up behind a webserver using Jeff Geerling's
+	nginx role.  Documentation updates (how to use, format fixes)
+
+2019-05-07  Michael Fleming <michael.fleming@arup.com>
+
+	* CHANGELOG, README.md: Update documentation to reflect code reality
+
 2019-05-03  Michael Fleming <michael.fleming@arup.com>
 
 	* .gitignore, README.md, meta/main.yml, tasks/install-Amazon.yml,

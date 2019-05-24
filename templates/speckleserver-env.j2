@@ -56,8 +56,8 @@ REDIS_URL="redis://{{ speckleserver_redis_host }}:{{ speckleserver_redis_port }}
 
 # If you want your api calls to return pretty json, set this to true. It will cause
 # the reponses to be ±10% bigger.
-INDENT_RESPONSES=false
+INDENT_RESPONSES={{ speckleserver_pretty_json | bool | lower  }}
 
 # If you want user email addresses to be publicly visible, set this to true. Not recommended for
 # public instances.
-EXPOSE_EMAILS=false
+EXPOSE_EMAILS={{ speckleserver_expose_emails | bool | lower }}

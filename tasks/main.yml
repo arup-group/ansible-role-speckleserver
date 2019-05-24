@@ -90,6 +90,8 @@
     src: |
       https://codeload.github.com/speckleworks/SpeckleAdmin/tar.gz/v{{ speckleadmin_version }}
     dest: "/home/speckle/speckleserver-{{speckleserver_version}}/plugins/"
+    owner: speckle
+    group: speckle
     remote_src: yes
 
 - name: "Install the application's required libraries via npm"
