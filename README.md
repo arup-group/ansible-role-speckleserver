@@ -45,7 +45,7 @@ Role Variables
 
 `speckleserver_redis_port`: Redis port (default `6379`)
 
-`speckleserver_pretty_json`: Pretty print API response output. Note that this makes the responses 10% larger. Boolean value, default is false`.
+`speckleserver_pretty_json`: Pretty print API response output. Note that this makes the responses 10% larger. Boolean value, default is `false`.
 
 `speckleserver_expose_emails`: Makes all user email addresses publicly visible. Not recommended for production. Boolean value, defaults to `false`.
 
@@ -114,7 +114,9 @@ Supported distros for such testing, courtesy of Jeff Geerling's molecule-testing
 TODO
 ----
 
-More idempotency / upgrade checks and tests.
+* More idempotency / upgrade checks and tests.
+
+* Resilience in the face of URL fetch failures
 
 Example Playbook
 ----------------
