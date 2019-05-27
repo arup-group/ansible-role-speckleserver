@@ -1,3 +1,6 @@
+#
+# {{ ansible_managed }}
+#
 # This is a base file for configuring the speckle server. Steps:
 # 2. Copy it to .env ( `cp .env-base .env`)
 # 2. Configure the .env file with your settings.
@@ -37,7 +40,7 @@ IP={{speckleserver_listen_ip }}
 # MAX_PROC=2
 
 # REQ_SIZE: The request size protects your server from being flooded with too much data.
-REQ_SIZE=10mb
+REQ_SIZE={{ speckleserver_request_max }}
 
 # This is used in the encryption of the api access tokens.
 # Please change it to something random!

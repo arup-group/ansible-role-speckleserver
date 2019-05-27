@@ -1,5 +1,17 @@
 2019-05-24  Michael Fleming <michael.fleming@arup.com>
 
+	* README.md: Fix documentation typo, remind myself to add some
+	remote fetching resilience checks.
+
+2019-05-24  Michael Fleming <michael.fleming@arup.com>
+
+	* CHANGELOG, README.md, defaults/main.yml, tasks/main.yml,
+	templates/speckleserver-env.j2: Fix ownership of speckleadmin plugin
+	dir Add boolean options for pretty JSON output and public email
+	visibility.
+
+2019-05-24  Michael Fleming <michael.fleming@arup.com>
+
 	* : commit 3c9deb7940ddfb35aea16354df980de988b8f789 Author: Michael
 	Fleming <michael.fleming@arup.com> Date:   Fri May 24 14:28:15 2019
 	+1000

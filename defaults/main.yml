@@ -12,3 +12,4 @@ speckleserver_redis_host: "localhost"
 speckleserver_redis_port: "6379"
 speckleserver_pretty_json: false
 speckleserver_expose_emails: false
+speckleserver_request_max: "10mb"

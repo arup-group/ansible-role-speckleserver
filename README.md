@@ -49,6 +49,7 @@ Role Variables
 
 `speckleserver_expose_emails`: Makes all user email addresses publicly visible. Not recommended for production. Boolean value, defaults to `false`.
 
+`speckleserver_request_max` : Maximum request size the server will accept, to protect against floods / DoS. defaults to `10mb`.
 
 Dependencies
 ------------
