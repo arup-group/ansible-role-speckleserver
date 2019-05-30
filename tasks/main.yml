@@ -52,28 +52,33 @@
     group: speckle
     state: link
 
-- name: "Get release info for Speckleserver from github (latest)"
-  uri:
-    url: "https://api.github.com/repos/speckleworks/SpeckleServer/releases/latest"
-    return_content: true
-  register: speckleserver_github
+- name: "Release info: Where to find release info (set version)"
+  set_fact:
+    speckleserver_api_stem: "tags/v{{ speckleserver_version }}"
+
+- name: "Release info: Where to find release info (latest)"
+  set_fact:
+    speckleserver_api_stem: "latest"
   when: speckleserver_version == "latest"
+
+- name: "INFO: Version of Speckleserver we are requesting"
+  debug:
+    msg: "We are planning to install the {{speckleserver_version }} release of SpeckleServer"
 
 - name: "Get release info for Speckleserver from github"
   uri:
     url: |
-      https://api.github.com/repos/speckleworks/SpeckleServer/releases/tags/v{{ speckleserver_version }}
+      https://api.github.com/repos/speckleworks/SpeckleServer/releases/{{ speckleserver_api_stem }}
     return_content: true
   register: speckleserver_github
-  when: speckleserver_version != "latest"
+  until: speckleserver_github.json.tarball_url is defined
+  retries: 5
+  delay: 10
 
-- name: "Version of Speckleserver we are requesting"
+- name: "INFO: Semantic release version info for the latest release"
   debug:
-    var: speckleserver_version
-
-- name: "Tarball URL from Github for the SpeckleServer archive we want"
-  debug:
-    var: speckleserver_github.json.tarball_url
+    msg: "FYI: The latest release points to version {{ speckleserver_github.json.tag_name }}"
+  when: speckleserver_version == "latest"
 
 - name: "Install the SpeckleServer application codebase"
   unarchive:
@@ -84,6 +89,10 @@
     remote_src: yes
     extra_opts: [ --strip-components=1 ]
     creates: "/home/speckle/speckleserver-{{ speckleserver_version }}/.env-base"
+  register: unpacked_base
+  until: unpacked_base is succeeded
+  retries: 5
+  delay: 10
 
 - name: "Install the SpeckleAdmin plugin to the plugins subdirectory"
   unarchive:
@@ -93,6 +102,10 @@
     owner: speckle
     group: speckle
     remote_src: yes
+  register: unpacked_plugin
+  until: unpacked_plugin is succeeded
+  retries: 5
+  delay: 10
 
 - name: "Install the application's required libraries via npm"
   npm:

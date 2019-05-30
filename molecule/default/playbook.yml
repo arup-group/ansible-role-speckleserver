@@ -5,3 +5,5 @@
     - role: ansible-role-speckleserver
     - role: geerlingguy.redis
     - role: undergreen.mongodb
+  vars:
+    speckleserver_version: "latest"
