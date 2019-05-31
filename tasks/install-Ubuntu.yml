@@ -1,14 +1,25 @@
 ---
-- name: "Install NodeJS 10.x repository info from NodeSource (Ubuntu)"
-  apt_repository:
-    repo: |
-      https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
+- name: "Ensure packaging dependencies are installed (Ubuntu)"
+  apt:
+    name: "{{ packages }}"
     state: present
+  vars:
+    packages:
+      - gpg-agent
+      - aptitude
+      - python-apt
 
 - name: "Import NodeJS APT/DEB signing key"
   apt_key:
-    key: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
     state: present
+
+- name: "Install NodeJS 10.x repository info from NodeSource (Ubuntu)"
+  apt_repository:
+    repo: |
+      deb https://deb.nodesource.com/node_10.x {{ ansible_distribution_release }} main
+    state: present
+    update_cache: yes
 
 - name: "Install nodejs 10.x package"
   apt:

@@ -121,10 +121,17 @@
   notify:
     - "Restart SpeckleServer"
 
+- name: "Determine systemd unit service location for this distro"
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - default.yml
+
 - name: "Create a systemd unit service file for Speckleserver"
   copy:
     src: files/speckleserver.service
-    dest: /usr/lib/systemd/system/speckleserver.service
+    dest: "{{ systemd_unit_base }}/speckleserver.service"
     owner: root
     group: root
     mode: 0750
