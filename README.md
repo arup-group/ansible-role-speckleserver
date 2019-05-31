@@ -25,7 +25,7 @@ Role Variables
 
 `speckleserver_version`: Version of SpeckleServer to download and install. Can be a numbered version in major.minor.micro format or "latest" (default: `latest`)
 
-`speckleadmin_version`: Version of the SpeckleAdmin plugin to download and install. Can be a numbered version in major.minor.micro format
+`speckleadmin_version`: Version of the SpeckleAdmin plugin to download and install. Can be a numbered version in major.minor.micro format (default: `0.2.11`)
 
 `speckleserver_server_name`: A name for this SpeckleServer instance.
 
@@ -101,7 +101,7 @@ You will also need a functional Ansible setup of course :D
 
 `molecule test` performs the full test suite
 
-If you wish to test cross-distro, pass a `MOLECULE_DISTRO` environment variable in your molecule command eg. `MOLECULE_DISTRO=ubuntu1804 molecule test`
+If you wish to test cross-distro, pass a `MOLECULE_DISTRO` environment variable in your molecule command eg. `MOLECULE_DISTRO="ubuntu1804" molecule test`
 
 Supported distros for such testing, courtesy of Jeff Geerling's molecule-testing docker images:
 
@@ -115,9 +115,9 @@ Supported distros for such testing, courtesy of Jeff Geerling's molecule-testing
 TODO
 ----
 
-* More idempotency / upgrade checks and tests.
+* More idempotency checks.
 
-* Resilience in the face of URL fetch failures
+* Further plugin support.
 
 Example Playbook
 ----------------
