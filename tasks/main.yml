@@ -107,6 +107,11 @@
   retries: 5
   delay: 10
 
+- name: "Ensure that any errant .npmrc files are removed as they break the install"
+  file:
+    path: "/home/speckle/speckleserver/.npmrc"
+    state: absent
+
 - name: "Install the application's required libraries via npm"
   npm:
     path: /home/speckle/speckleserver/
