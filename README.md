@@ -51,6 +51,18 @@ Role Variables
 
 `speckleserver_request_max` : Maximum request size the server will accept, to protect against floods / DoS. defaults to `10mb`.
 
+`speckleserver_first_user_admin` : The first created user in a new SpeclkeServer 1.6.x or later instance is considered the admin user. Boolean value, default is `true`.
+
+`speckleserver_send_email`: The application (1.6.x and later) can send email notifications to users. Boolean value, defaults to `true`
+
+ Email related options
+
+  * `smtp_host`: mailserver hostname. String value, default is `localhost`
+  * `smtp_port`: mailserver port to use. Integer value, default is `25`, Recommended values are `25` (standard smtp) or `587` (submission) if available
+  * `smtp_auth_username`: SMTP Authentication username (if supported). String value, Defaults to an empty string (no AUTH)
+  * `smtp_auth_password`: SMTP Authentication password (if supported). String value, Defaults to an empty string (no AUTH)
+  * `smtp_email_from`: SMTP envelope sender address. String value, default is `speckleserver@<your_domain>`
+
 Dependencies
 ------------
 
