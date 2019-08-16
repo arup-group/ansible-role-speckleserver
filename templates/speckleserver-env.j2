@@ -81,5 +81,5 @@ SMTP_PASSWORD="{{ speckleserver_email_config['smtp_auth_password'] }}"
 
 # Will populate the `from:` field in any emails this server sends. Please note, some
 # providers will require to verify your domain first.
-EMAIL_SENDER="{{ speckleserver_email_config['smtp_email_sender'] | default('nobody@{{ ansible_domain }}') }}"
+EMAIL_SENDER="{{ speckleserver_email_config['smtp_email_sender'] }}"
 {% endif %}
