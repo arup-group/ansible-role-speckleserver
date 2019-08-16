@@ -61,7 +61,7 @@ Role Variables
   * `smtp_port`: mailserver port to use. Integer value, default is `25`, Recommended values are `25` (standard smtp) or `587` (submission) if available
   * `smtp_auth_username`: SMTP Authentication username (if supported). String value, Defaults to an empty string (no AUTH)
   * `smtp_auth_password`: SMTP Authentication password (if supported). String value, Defaults to an empty string (no AUTH)
-  * `smtp_email_from`: SMTP envelope sender address. String value, default is `speckleserver@<your_domain>`
+  * `smtp_email_sender`: SMTP envelope sender address. String value, default is `speckleserver` (your MTA should append the local domain/FQDN if not overriden)
 
 Dependencies
 ------------

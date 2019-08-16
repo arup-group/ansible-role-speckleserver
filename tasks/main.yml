@@ -118,7 +118,7 @@
 
 - name: "Configure the speckleserver instance via .env file"
   template:
-    src: templates/speckleserver-env.j2
+    src: speckleserver-env.j2
     dest: /home/speckle/speckleserver/.env
     owner: speckle
     group: speckle

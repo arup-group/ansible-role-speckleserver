@@ -19,7 +19,7 @@ CANONICAL_URL="{{ speckleserver_url }}"
 
 # PUBLIC_STREAMS: Wether all streams created should be public (true) or private (false)
 # by default.
-PUBLIC_STREAMS={{ speckleserver_public_streams | bool | lower }}
+PUBLIC_STREAMS={{ speckleserver_public_streams | lower }}
 
 # PLUGIN_DIRS: Dirs to scan for speckle plugins (comma separated). For example, if you install
 # some other modules in `./test` and `./wonderful`, you could use PLUGIN_DIRS="./test,./wonderful"
@@ -59,27 +59,27 @@ REDIS_URL="redis://{{ speckleserver_redis_host }}:{{ speckleserver_redis_port }}
 
 # If you want your api calls to return pretty json, set this to true. It will cause
 # the reponses to be ±10% bigger.
-INDENT_RESPONSES={{ speckleserver_pretty_json | bool | lower  }}
+INDENT_RESPONSES={{ speckleserver_pretty_json | lower  }}
 
 # If you want user email addresses to be publicly visible, set this to true. Not recommended for
 # public instances.
-EXPOSE_EMAILS={{ speckleserver_expose_emails | bool | lower }}
+EXPOSE_EMAILS={{ speckleserver_expose_emails | lower }}
 
 # The first user to register gets an admin role.
-FIRST_USER_ADMIN={{ speckleserver_first_user_admin | bool | lower }}
+FIRST_USER_ADMIN={{ speckleserver_first_user_admin | lower }}
 
-{% if speckleserver_send_email is defined %}
+{% if speckleserver_send_email == True %}
 # SMTP server
 # This section is used to send emails out. You can use the provider of your choice,
 # as long as it exposes an SMTP server that you can use. Some of these providers are:
 # sparkpost, mailgun, sendgrid.
 
-SMTP_HOST="{{ speckleserver_email_config['smtp_host'] }}"
-SMTP_PORT={{ speckleserver_email_config['smtp_port'] }}
-SMTP_USERNAME="{{ speckleserver_email_config['smtp_auth_name'] }}"
-SMTP_PASSWORD="{{ speckleserver_email_config['smtp_auth_password'] }}"
+SMTP_HOST="{{ speckleserver_email_config.smtp_host }}"
+SMTP_PORT={{ speckleserver_email_config.smtp_port }}
+SMTP_USERNAME="{{ speckleserver_email_config.smtp_auth_username }}"
+SMTP_PASSWORD="{{ speckleserver_email_config.smtp_auth_password }}"
 
 # Will populate the `from:` field in any emails this server sends. Please note, some
 # providers will require to verify your domain first.
-EMAIL_SENDER="{{ speckleserver_email_config['smtp_email_sender'] }}"
+EMAIL_SENDER="{{ speckleserver_email_config.smtp_email_sender }}"
 {% endif %}
