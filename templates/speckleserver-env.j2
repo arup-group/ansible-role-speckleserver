@@ -74,12 +74,12 @@ FIRST_USER_ADMIN={{ speckleserver_first_user_admin | bool | lower }}
 # as long as it exposes an SMTP server that you can use. Some of these providers are:
 # sparkpost, mailgun, sendgrid.
 
-SMTP_HOST="{{ speckle_email_config[smtp_host] | default('localhost') }}"
-SMTP_PORT={{ speckle_email_config[smtp_port] | default(25)  }}"
-SMTP_USERNAME="{{ speckle_email_config[smtp_auth_name] | default('') }}"
-SMTP_PASSWORD="{{ speckle_email_config[smtp_auth_password] | default('') }}"
+SMTP_HOST="{{ speckleserver_email_config[smtp_host] | default('localhost') }}"
+SMTP_PORT={{ speckleserver_email_config[smtp_port] | default(25)  }}"
+SMTP_USERNAME="{{ speckleserver_email_config[smtp_auth_name] | default('') }}"
+SMTP_PASSWORD="{{ speckleserver_email_config[smtp_auth_password] | default('') }}"
 
 # Will populate the `from:` field in any emails this server sends. Please note, some
 # providers will require to verify your domain first.
-EMAIL_SENDER="{{ speckle_email_config[smtp_email_from] | default('nobody@{{ ansible_domain }}') }}"
+EMAIL_SENDER="{{ speckleserver_email_config[smtp_email_from] | default('nobody@{{ ansible_domain }}') }}"
 {% endif %}
