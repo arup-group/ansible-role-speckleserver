@@ -16,5 +16,8 @@ speckleserver_request_max: "10mb"
 speckleserver_first_user_admin: true
 speckleserver_send_email: true
 speckleserver_email_config:
-  - smtp_host: "localhost"
-  - smtp_port: 25
+  smtp_host: "localhost"
+  smtp_port: 25
+  smtp_auth_username: ""
+  smtp_auth_password: ""
+  smtp_email_sender: "speckleserver"
