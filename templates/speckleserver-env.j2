@@ -64,3 +64,22 @@ INDENT_RESPONSES={{ speckleserver_pretty_json | bool | lower  }}
 # If you want user email addresses to be publicly visible, set this to true. Not recommended for
 # public instances.
 EXPOSE_EMAILS={{ speckleserver_expose_emails | bool | lower }}
+
+# The first user to register gets an admin role.
+FIRST_USER_ADMIN={{ speckleserver_first_user_admin | bool | lower }}
+
+{% if speckleserver_send_email is defined %}
+# SMTP server
+# This section is used to send emails out. You can use the provider of your choice,
+# as long as it exposes an SMTP server that you can use. Some of these providers are:
+# sparkpost, mailgun, sendgrid.
+
+SMTP_HOST="{{ speckle_email_config[smtp_host] | default('localhost') }}"
+SMTP_PORT={{ speckle_email_config[smtp_port] | default(25)  }}"
+SMTP_USERNAME="{{ speckle_email_config[smtp_auth_name] | default('') }}"
+SMTP_PASSWORD="{{ speckle_email_config[smtp_auth_password] | default('') }}"
+
+# Will populate the `from:` field in any emails this server sends. Please note, some
+# providers will require to verify your domain first.
+EMAIL_SENDER="{{ speckle_email_config[smtp_email_from] | default('nobody@{{ ansible_domain }}') }}"
+{% endif %}

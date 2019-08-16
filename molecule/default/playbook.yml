@@ -7,3 +7,9 @@
     - role: undergreen.mongodb
   vars:
     speckleserver_version: "latest"
+    speckleserver_send_email: true
+    speckleserver_first_user_admin: true
+    speckle_email_config:
+      - smtp_host: "localhost"
+      - smtp_port: 25
+      - smtp_email_from: "nobody@arup.com"
