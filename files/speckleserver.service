@@ -3,7 +3,7 @@ Description=SpeckleServer
 
 [Service]
 WorkingDirectory=/home/speckle/speckleserver/
-ExecStart=node server.js
+ExecStart=/usr/bin/node server.js
 Restart=on-failure
 StandardOutput=syslog
 StandardError=syslog
