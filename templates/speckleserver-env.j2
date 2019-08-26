@@ -83,3 +83,51 @@ SMTP_PASSWORD="{{ speckleserver_email_config.smtp_auth_password }}"
 # providers will require to verify your domain first.
 EMAIL_SENDER="{{ speckleserver_email_config.smtp_email_sender }}"
 {% endif %}
+
+#
+# Authentication Strategies
+#
+
+# Set to false to disable register routes
+PUBLIC_REGISTRATION={{ speckleserver_public_registration | bool | lower }}
+
+# Local
+# Local is the default auth strategy for speckle (email + password).
+# If this strategy is disabled, the api routes for registering and logging in will not work.
+USE_LOCAL={{ speckleserver_local_auth | bool | lower }}
+
+# Auth0
+# https://auth0.com
+USE_AUTH0={{ speckleserver_auth0_auth | bool | lower }}
+{% if speckleserver_auth0_auth == True %}
+AUTH0_CLIENT_ID="{{ speckleserver_auth0.clientid }}"
+AUTH0_DOMAIN="{{ speckleserver_auth0.domain }}"
+AUTH0_CLIENT_SECRET="{{ speckleserver_auth0.clientsecret }}"
+{% endif %}
+
+# Azure AD
+# https://azure.microsoft.com/en-gb/services/active-directory/
+USE_AZUREAD={{ speckleserver_azuread_auth | bool | lower }}
+{% if speckleserver_azuread_auth == True %}
+AZUREAD_ORG_NAME="{{ speckleserver_azuread.orgname }}"
+AZUREAD_CLIENT_ID="{{ speckleserver_azuread.clientid }}"
+AZUREAD_IDENTITY_METADATA="{{ speckleserver_azuread.metdata }}"
+AZUREAD_CLIENT_SECRET="{{ speckleserver_azuread.clientsecret }}"
+{% endif %}
+
+# Github
+# https://github.com/jaredhanson/passport-github
+USE_GITHUB={{ speckleserver_github_auth | bool | lower }}
+{% if speckleserver_github_auth == True %}
+GITHUB_CLIENT_ID="{{ speckleserver_github.clientid }}"
+GITHUB_CLIENT_SECRET="{{ speckleserver_github.clientsecret }}"
+GITHUB_CALLBACK="{{ speckleserver_github.callback }}"
+{% endif %}
+
+# Whitelisted domains
+# Add here any other places that you trust this server to redirect to once authentication is done.
+REDIRECT_URLS="{{ speckleserver_wl_redirect_urls }}"
+
+# Wether to allow non http*s* redirect urls.
+# "localhost" redirect urls will always work with or without TLS.
+ALLOW_INSECURE_REDIRECTS={{ speckleserver_allow_insecure_redirects | bool | lower | default(false) }}

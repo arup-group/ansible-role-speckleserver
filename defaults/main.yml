@@ -20,3 +20,9 @@ speckleserver_email_config:
   smtp_auth_username: ""
   smtp_auth_password: ""
   smtp_email_sender: "speckleserver"
+speckleserver_local_auth: true
+speckleserver_auth0_auth: false
+speckleserver_azuread_auth: false
+speckleserver_github_auth: false
+speckleserver_wl_redirect_urls: "http://localhost:5050,https://app.speckle.systems"
+speckleserver_allow_insecure_redirects: false
