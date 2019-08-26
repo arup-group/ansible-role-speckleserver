@@ -73,7 +73,8 @@ Role Variables
 External User Authentication
 ----------------------------
 
-As of 1.7, Speckle can also authenticate users with the following three services and variable sets : (https://auth0.com)[Auth0] , (https://azure.microsoft.com/en-au/services/active-directory/)[Microsoft's Azure Active Directrory] and )https://gitub.com/)[GitHub users]
+As of 1.7, Speckle can also authenticate users with the following three services and variable sets : [Auth0](https://auth0.com) , [Azure Active Directory](https://azure.microsoft.com/en-au/services/active-directory/)
+and [Github](https://github.com/) user authentication
 
 Each has to be toggled on (boolean true/false) and a YAML hash of settings provided, per the below reference. Precise details are left as an exercise for the reader.
 
