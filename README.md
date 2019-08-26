@@ -103,7 +103,7 @@ speckleserver_azuread:
 
 **GitHub**:
 
-````
+```
 # Github user auth requires the client ID/Secret and a callback URI
 speckleserver_github_auth: false
 speckleserver_github:
