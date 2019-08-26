@@ -27,31 +27,6 @@
   tags:
     - migrate
 
-- name: "MIGRATE: Move unversioned speckle app dir to a versioned one"
-  command: "mv /home/speckle/speckleserver/ /home/speckle/speckleserver-{{ speckleserver_version }}"
-  args:
-    creates: "/home/speckle/speckleserver-{{ speckleserver_version }}"
-    removes: /home/speckle/speckleserver
-  when: legacy_specklepath.stat.islnk is defined and legacy_specklepath.stat.islnk == False
-  tags:
-    - migrate
-
-- name: "Ensure that the speckleserver subdirectory exists"
-  file:
-    path: "/home/speckle/speckleserver-{{ speckleserver_version }}"
-    state: directory
-    owner: speckle
-    group: speckle
-    mode: 0755
-
-- name: "Symlink base application root dir to versioned app directory"
-  file:
-    path: /home/speckle/speckleserver
-    src: "/home/speckle/speckleserver-{{ speckleserver_version }}/"
-    owner: speckle
-    group: speckle
-    state: link
-
 - name: "Release info: Where to find release info (set version)"
   set_fact:
     speckleserver_api_stem: "tags/v{{ speckleserver_version }}"
@@ -80,6 +55,31 @@
     msg: "FYI: The latest release points to version {{ speckleserver_github.json.tag_name }}"
   when: speckleserver_version == "latest"
 
+- name: "MIGRATE: Move unversioned speckle app dir to a versioned one"
+  command: "mv /home/speckle/speckleserver/ /home/speckle/speckleserver-{{ speckleserver_version }}"
+  args:
+    creates: "/home/speckle/speckleserver-{{ speckleserver_version }}"
+    removes: /home/speckle/speckleserver
+  when: legacy_specklepath.stat.islnk is defined and legacy_specklepath.stat.islnk == False
+  tags:
+    - migrate
+
+- name: "Ensure that the speckleserver subdirectory exists"
+  file:
+    path: "/home/speckle/speckleserver-{{ speckleserver_version }}"
+    state: directory
+    owner: speckle
+    group: speckle
+    mode: 0755
+
+- name: "Symlink base application root dir to versioned app directory"
+  file:
+    path: /home/speckle/speckleserver
+    src: "/home/speckle/speckleserver-{{ speckleserver_version }}/"
+    owner: speckle
+    group: speckle
+    state: link
+
 - name: "Install the SpeckleServer application codebase"
   unarchive:
     src: "{{ speckleserver_github.json.tarball_url }}"
@@ -93,24 +93,6 @@
   until: unpacked_base is succeeded
   retries: 5
   delay: 10
-
-- name: "Install the SpeckleAdmin plugin to the plugins subdirectory"
-  unarchive:
-    src: |
-      https://codeload.github.com/speckleworks/SpeckleAdmin/tar.gz/v{{ speckleadmin_version }}
-    dest: "/home/speckle/speckleserver-{{speckleserver_version}}/plugins/"
-    owner: speckle
-    group: speckle
-    remote_src: yes
-  register: unpacked_plugin
-  until: unpacked_plugin is succeeded
-  retries: 5
-  delay: 10
-
-- name: "Ensure that any errant .npmrc files are removed as they break the install"
-  file:
-    path: "/home/speckle/speckleserver/.npmrc"
-    state: absent
 
 - name: "Install the application's required libraries via npm"
   npm:
