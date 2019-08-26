@@ -80,7 +80,7 @@ Each has to be toggled on (boolean true/false) and a YAML hash of settings provi
 As a general rule, you'll need a client identifier, the associated secret and any relevant metadata (domain names, callback URLs, IdP metadata stanzas) per your chosen PaaS provider.
 
 **Auth0**:
-```
+```yaml
 # Auth0 needs a client ID / Secret and a domain the account is attached to
 speckleserver_auth0_auth: true
 speckleserver_auth0:
@@ -91,7 +91,7 @@ speckleserver_auth0:
 
 **Microsoft Azure AD**:
 
-```
+```yaml
 # Azure needs the client id/secret, the AzureAD organization name and some identity-related metadata
 speckleserver_azuread_auth: true
 speckleserver_azuread:
@@ -103,7 +103,7 @@ speckleserver_azuread:
 
 **GitHub**:
 
-```
+```yaml
 # Github user auth requires the client ID/Secret and a callback URI
 speckleserver_github_auth: false
 speckleserver_github:
