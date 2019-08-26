@@ -180,18 +180,20 @@ TODO
 
 Example Playbook
 ----------------
-    - hosts: servers
-      become: yes
-      become_method: sudo
-      become_user: root
-      roles:
-         - { role: ansible-role-speckleserver  }
-      vars:
-        speckleserver_server_name: 'SpeckleServer Development Environment'
-        speckleserver_url: 'http://speckle.example.com'
-        speckleserver_mongodb_uri: 'mongodb://mongo.example.com:27017/speckle'
-        speckleserver_redis_host: 'redis.example.com'
-        speckleserver_version: "1.5.2"
+```yaml
+- hosts: servers
+  become: yes
+  become_method: sudo
+  become_user: root
+  roles:
+     - { role: ansible-role-speckleserver  }
+  vars:
+    speckleserver_server_name: 'SpeckleServer Development Environment'
+    speckleserver_url: 'http://speckle.example.com'
+    speckleserver_mongodb_uri: 'mongodb://mongo.example.com:27017/speckle'
+    speckleserver_redis_host: 'redis.example.com'
+    speckleserver_version: "1.5.2"
+```
 
 License
 -------
