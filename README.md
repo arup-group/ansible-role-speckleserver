@@ -61,6 +61,57 @@ Role Variables
   * `smtp_auth_password`: SMTP Authentication password (if supported). String value, Defaults to an empty string (no AUTH)
   * `smtp_email_sender`: SMTP envelope sender address. String value, default is `speckleserver` (your MTA should append the local domain/FQDN if not overriden)
 
+
+`speckleserver_public_registration`: Allows user registration via the application directly or administrative frontend. Boolean value, default is true
+
+`speckleserver_local_auth`: Use local, internal user authentication (includes password resets when email enabled). Boolean value, default is true
+
+`speckleserver_wl_redirect_urls`: A comma-separated list of URIs we will accept for redirects - note that localhost is implied. String value, empty set for defaults
+
+`speckleserver_allow_insecure_redirects`: Allow insecure, unencrypted redirects. Not recommended unless you know what you're doing. Boolean value, sensibly defaults to false
+
+External User Authentication
+----------------------------
+
+As of 1.7, Speckle can also authenticate users with the following three services and variable sets : (https://auth0.com)[Auth0] , (https://azure.microsoft.com/en-au/services/active-directory/)[Microsoft's Azure Active Directrory] and )https://gitub.com/)[GitHub users]
+
+Each has to be toggled on (boolean true/false) and a YAML hash of settings provided, per the below reference. Precise details are left as an exercise for the reader.
+
+As a general rule, you'll need a client identifier, the associated secret and any relevant metadata (domain names, callback URLs, IdP metadata stanzas) per your chosen PaaS provider.
+
+**Auth0**:
+```
+# Auth0 needs a client ID / Secret and a domain the account is attached to
+speckleserver_auth0_auth: true
+speckleserver_auth0:
+  clientid: "my_auth0_client_id"
+  domain: "my_dns_domain.org" 
+  clientsecret: "my_auth0_client_secret"
+```
+
+**Microsoft Azure AD**:
+
+```
+# Azure needs the client id/secret, the AzureAD organization name and some identity-related metadata
+speckleserver_azuread_auth: true
+speckleserver_azuread:
+  orgname: "my_organization_name"
+  clientid: "my_client_id"
+  metadata: "my_azuread_org_metadata"
+  clientsecret: "my_azuread_client_secret"
+```
+
+**GitHub**:
+
+````
+# Github user auth requires the client ID/Secret and a callback URI
+speckleserver_github_auth: false
+speckleserver_github:
+  clientid: "my_github_org_client_id"
+  clientsecret: "my_github_org_client_secret"
+  callback: "my_github_callback_url"
+```
+
 Dependencies
 ------------
 
@@ -125,9 +176,7 @@ Supported distros for such testing, courtesy of Jeff Geerling's molecule-testing
 TODO
 ----
 
-* More idempotency checks.
-
-* Further plugin support.
+* Better vhost examples.
 
 Example Playbook
 ----------------

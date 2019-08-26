@@ -45,14 +45,14 @@
     url: |
       https://api.github.com/repos/speckleworks/SpeckleServer/releases/{{ speckleserver_api_stem }}
     return_content: true
-  register: speckleserver_github
-  until: speckleserver_github.json.tarball_url is defined
+  register: speckleserver_ghub
+  until: speckleserver_ghub.json.tarball_url is defined
   retries: 5
   delay: 10
 
 - name: "INFO: Semantic release version info for the latest release"
   debug:
-    msg: "FYI: The latest release points to version {{ speckleserver_github.json.tag_name }}"
+    msg: "FYI: The latest release points to version {{ speckleserver_ghub.json.tag_name }}"
   when: speckleserver_version == "latest"
 
 - name: "MIGRATE: Move unversioned speckle app dir to a versioned one"
@@ -82,7 +82,7 @@
 
 - name: "Install the SpeckleServer application codebase"
   unarchive:
-    src: "{{ speckleserver_github.json.tarball_url }}"
+    src: "{{ speckleserver_ghub.json.tarball_url }}"
     dest: "/home/speckle/speckleserver-{{ speckleserver_version }}"
     owner: speckle
     group: speckle
