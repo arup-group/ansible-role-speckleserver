@@ -1,6 +1,5 @@
 ---
 speckleserver_version: "latest"
-speckleadmin_version: "0.2.11"
 speckleserver_server_name: "Test SpeckleServer Please Ignore"
 speckleserver_url: "http://localhost/"
 speckleserver_public_streams: true

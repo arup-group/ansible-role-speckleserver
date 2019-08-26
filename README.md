@@ -25,8 +25,6 @@ Role Variables
 
 `speckleserver_version`: Version of SpeckleServer to download and install. Can be a numbered version in major.minor.micro format or "latest" (default: `latest`)
 
-`speckleadmin_version`: Version of the SpeckleAdmin plugin to download and install. Can be a numbered version in major.minor.micro format (default: `0.2.11`)
-
 `speckleserver_server_name`: A name for this SpeckleServer instance.
 
 `speckleserver_url`: The canonical web URL for this SpeckleServer instance (default: `http://localhost/`)
@@ -145,7 +143,6 @@ Example Playbook
         speckleserver_mongodb_uri: 'mongodb://mongo.example.com:27017/speckle'
         speckleserver_redis_host: 'redis.example.com'
         speckleserver_version: "1.5.2"
-        speckleadmin_version: "0.2.11"
 
 License
 -------
