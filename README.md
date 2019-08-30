@@ -35,6 +35,8 @@ Role Variables
 
 `speckleserver_listen_ip`: IP address to bind to (defaults to `127.0.0.1`)
 
+`speckleserver_max_procs`: [**OPTIONAL**] number of SpeckleServer processes to spawn (no default, software will spawn a process per CPU core if left unset)
+
 `speckleserver_session_secret`: Session cookie secret: (default "`changemeplease`")
 
 `speckleserver_mongodb_uri`: MongoDB connection string: (default `mongodb://localhost:27017/`)
