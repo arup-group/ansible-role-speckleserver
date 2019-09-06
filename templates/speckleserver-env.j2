@@ -39,7 +39,7 @@ IP={{speckleserver_listen_ip }}
 # just uncomment the line below.
 
 if {% speckleserver_max_procs is defined %}
-# MAX_PROC={{ speckleserver_max_procs }}
+MAX_PROC={{ speckleserver_max_procs }}
 {% else %}
 # MAX_PROC=2
 {% endif %}
