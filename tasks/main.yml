@@ -20,13 +20,6 @@
     comment: "Speckleserver service user"
     shell: "/bin/bash"
 
-- name: "MIGRATE: Check we have an unversioned speckle app dir"
-  stat:
-    path: /home/speckle/speckleserver/
-  register: legacy_specklepath
-  tags:
-    - migrate
-
 - name: "Release info: Where to find release info (set version)"
   set_fact:
     speckleserver_api_stem: "tags/v{{ speckleserver_version }}"
@@ -55,14 +48,9 @@
     msg: "FYI: The latest release points to version {{ speckleserver_ghub.json.tag_name }}"
   when: speckleserver_version == "latest"
 
-- name: "MIGRATE: Move unversioned speckle app dir to a versioned one"
-  command: "mv /home/speckle/speckleserver/ /home/speckle/speckleserver-{{ speckleserver_version }}"
-  args:
-    creates: "/home/speckle/speckleserver-{{ speckleserver_version }}"
-    removes: /home/speckle/speckleserver
-  when: legacy_specklepath.stat.islnk is defined and legacy_specklepath.stat.islnk == False
-  tags:
-    - migrate
+- name: "MIGRATE: I've got an ancient unversioned speckle install and need to migrate it"
+  include_tasks: migrate.yml
+  when: speckleserver_migrate is defined and speckleserver_migrate is True
 
 - name: "Ensure that the speckleserver subdirectory exists"
   file:
