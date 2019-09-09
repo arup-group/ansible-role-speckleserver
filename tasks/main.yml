@@ -50,7 +50,9 @@
 
 - name: "MIGRATE: I've got an ancient unversioned speckle install and need to migrate it"
   include_tasks: migrate.yml
-  when: speckleserver_migrate is defined and speckleserver_migrate is True
+  when:
+    - speckleserver_migrate is defined
+    - speckleserver_migrate|bool == true
 
 - name: "Ensure that the speckleserver subdirectory exists"
   file:
