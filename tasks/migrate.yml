@@ -11,6 +11,8 @@
   args:
     creates: "/home/speckle/speckleserver-{{ speckleserver_version }}"
     removes: /home/speckle/speckleserver
-  when: legacy_specklepath.stat.islnk is defined and legacy_specklepath.stat.islnk is False
+  when:
+    - legacy_specklepath.stat.islnk is defined
+    - legacy_specklepath.stat.islnk|bool == false
   tags:
     - migrate

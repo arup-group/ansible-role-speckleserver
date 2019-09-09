@@ -1,4 +1,5 @@
 ---
+speckleserver_migrate: false
 speckleserver_version: "latest"
 speckleserver_server_name: "Test SpeckleServer Please Ignore"
 speckleserver_url: "http://localhost/"
