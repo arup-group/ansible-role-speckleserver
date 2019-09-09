@@ -38,11 +38,7 @@ IP={{speckleserver_listen_ip }}
 # Speckle will fork out as many as the machine's processor cores. To specify it,
 # just uncomment the line below.
 
-if {% speckleserver_max_procs is defined %}
 MAX_PROC={{ speckleserver_max_procs }}
-{% else %}
-# MAX_PROC=2
-{% endif %}
 
 # REQ_SIZE: The request size protects your server from being flooded with too much data.
 REQ_SIZE={{ speckleserver_request_max }}
