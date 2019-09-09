@@ -12,6 +12,7 @@ speckleserver_redis_port: "6379"
 speckleserver_pretty_json: false
 speckleserver_expose_emails: false
 speckleserver_request_max: "10mb"
+speckleserver_max_procs: "{{ ansible_processor_vcpus }}"
 speckleserver_first_user_admin: true
 speckleserver_send_email: true
 speckleserver_email_config:
