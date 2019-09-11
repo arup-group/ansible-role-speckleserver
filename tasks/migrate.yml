@@ -1,0 +1,18 @@
+---
+- name: "MIGRATE: Check we have an unversioned speckle app dir"
+  stat:
+    path: /home/speckle/speckleserver/
+  register: legacy_specklepath
+  tags:
+    - migrate
+
+- name: "MIGRATE: Move unversioned speckle app dir to a versioned one"
+  command: "mv /home/speckle/speckleserver/ /home/speckle/speckleserver-{{ speckleserver_version }}"
+  args:
+    creates: "/home/speckle/speckleserver-{{ speckleserver_version }}"
+    removes: /home/speckle/speckleserver
+  when:
+    - legacy_specklepath.stat.islnk is defined
+    - legacy_specklepath.stat.islnk|bool == false
+  tags:
+    - migrate
