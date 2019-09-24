@@ -112,7 +112,7 @@ USE_AZUREAD={{ speckleserver_azuread_auth | bool | lower }}
 {% if speckleserver_azuread_auth == True %}
 AZUREAD_ORG_NAME="{{ speckleserver_azuread.orgname }}"
 AZUREAD_CLIENT_ID="{{ speckleserver_azuread.clientid }}"
-AZUREAD_IDENTITY_METADATA="{{ speckleserver_azuread.metdata }}"
+AZUREAD_IDENTITY_METADATA="{{ speckleserver_azuread.metadata }}"
 AZUREAD_CLIENT_SECRET="{{ speckleserver_azuread.clientsecret }}"
 {% endif %}
 
