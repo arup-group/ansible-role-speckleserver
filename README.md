@@ -95,12 +95,12 @@ speckleserver_auth0:
 **Microsoft Azure AD**:
 
 ```yaml
-# Azure needs the client id/secret, the AzureAD organization name and some identity-related metadata
+# Azure needs the client id/secret, the AzureAD organization name and the Tenant ID for some identity-related metadata
 speckleserver_azuread_auth: true
 speckleserver_azuread:
   orgname: "my_organization_name"
   clientid: "my_client_id"
-  metadata: "my_azuread_org_metadata"
+  metadata: "my_azuread_tenant_id"
   clientsecret: "my_azuread_client_secret"
 ```
 
