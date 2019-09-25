@@ -87,6 +87,8 @@
 - name: "Install the application's required libraries via npm"
   npm:
     path: /home/speckle/speckleserver/
+  become: yes
+  become_user: speckle
 
 - name: "Configure the speckleserver instance via .env file"
   template:
