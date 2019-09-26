@@ -27,7 +27,7 @@ Role Variables
 
 `speckleserver_server_name`: A name for this SpeckleServer instance.
 
-`speckleserver_url`: The canonical web URL for this SpeckleServer instance (default: `http://localhost/`)
+`speckleserver_url`: The canonical web URL for this SpeckleServer instance (default: `http://localhost`) without the trailing slash.
 
 `speckleserver_public_streams`: Allow streams to be publicly published (default: `true`)
 
