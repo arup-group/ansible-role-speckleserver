@@ -23,7 +23,7 @@ Supported Operating Systems
 Role Variables
 --------------
 
-`speckleserver_admin`: Install the SpeckleServer Admin interface from github.com/speckleworks/SpeckleAdmin. Boolean value, default is false.
+`speckleserver_admin`: Install the SpeckleServer Admin interface from [SpeckleWorks SpeckleAdmin git](http://github.com/speckleworks/SpeckleAdmin). Boolean value, default is false.
 
 `speckleserver_version`: Version of SpeckleServer to download and install. Can be a numbered version in major.minor.micro format or "latest" (default: `latest`)
 
