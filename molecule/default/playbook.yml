@@ -7,6 +7,7 @@
     - role: undergreen.mongodb
   vars:
     speckleserver_version: "latest"
+    speckleserver_admin: true
     speckleserver_send_email: true
     speckleserver_first_user_admin: true
     speckle_email_config:
