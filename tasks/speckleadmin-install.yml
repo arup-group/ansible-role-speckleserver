@@ -18,6 +18,8 @@
   git:
     repo: "https://github.com/speckleworks/SpeckleAdmin.git"
     dest: "/home/speckle/speckleserver/plugins/SpeckleAdmin/"
+  become: yes
+  become_user: speckle
   when:
     - plugindir.stat.isdir
 
@@ -25,6 +27,8 @@
   npm:
     path: "/home/speckle/speckleserver/plugins/SpeckleAdmin/"
     state: present
+  become: yes
+  become_user: speckle
   when:
     - plugindir.stat.isdir
   notify:
