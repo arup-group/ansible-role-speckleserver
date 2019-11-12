@@ -12,19 +12,19 @@
     name: "git"
     state: present
   when:
-    -  plugindir.isdir.exists
+    - plugindir.isdir.exists
 
 - name: "Pull SpeckleAdmin from Github"
   git:
     repo: "https://github.com/speckleworks/SpeckleAdmin.git"
     dest: "/home/speckle/speckleserver/plugins/SpeckleAdmin/"
   when:
-    -  plugindir.isdir.exists
+    - plugindir.isdir.exists
+  tag: dont_ansible_lint
 
 - name: "Install the nodejs modules required for the plugin"
   npm:
     path: "/home/speckle/speckleserver/plugins/SpeckleAdmin/"
     state: present
   when:
-    -  plugindir.isdir.exists
-
+    - plugindir.isdir.exists
