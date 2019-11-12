@@ -115,6 +115,10 @@
     group: root
     mode: 0750
 
+- name: "Install the SpeckleAdmin Plugin"
+  include_tasks: "speckleadmin-install.yml"
+  when: speckleserver_admin
+
 - name: "Enable and start the Speckleserver service"
   service:
     name: speckleserver
