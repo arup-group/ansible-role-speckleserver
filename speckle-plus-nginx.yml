@@ -1,0 +1,79 @@
+---
+- hosts: speckleservers
+  become: yes
+  become_method: sudo
+  become_user: root
+  roles:
+    - ansible-role-speckleserver
+    - nginxinc.nginx
+  vars:
+    speckleserver_server_name: "Your Site Name Here"
+    speckleserver_url: "http://speckleserver.example.com/"
+    speckleserver_session_secret: "grumblesmurf"
+    speckleserver_mongodb_uri: "mongodb://my.mongodbserver.here.foo.example.com:27107/speckle"
+    speckleserver_redis_host: "my.redis.host.example.com"
+    speckleserver_redis_port: "6379"
+    speckleserver_pretty_json: true
+    speckleserver_first_user_admin: true
+    speckleserver_send_email: true
+    speckleserver_email_sender: "speckleserver@arup.com"
+    nginx_enable: true
+    nginx_start: true
+    nginx_type: opensource
+    nginx_install_from: os_repository
+    nginx_http_template_enable: true
+    nginx_http_template:
+      default:
+        template_file: www/default.conf.j2
+        conf_file_name: speckleserver.conf
+        conf_file_location: /etc/nginx/conf.d/
+        upstream:
+          name: speckleserver
+          servers:
+            address: "127.0.0.1"
+            port: 3000
+        servers:
+          server1:
+            listen:
+              port: 80
+            https_redirect: true
+          server2:
+            listen:
+              port: 443
+              ssl: true
+              opts: [ 'http2' ]
+            server_name: "{{ speckleserver_url | urlsplit('hostname') }}"
+            root: "/home/speckleserver/speckle/"
+            access_log:
+              location: "/var/log/nginx/"
+              name: "speckleserver-access.log"
+            error_log:
+              location: "/var/log/nginx/"
+              name: "speckleserver-access.log"
+            ssl:
+              cert: "/etc/letsencrypt/live/{{ speckleserver_url | urlsplit('hostname') }}/fullchain.pem"
+              key: "/etc/letsencrypt/live/{{ speckleserver_url | urlsplit('hostname') }}/privkey.pem"
+              session_cache: "shared:SSL:1m"
+              session_timeout: "10m"
+              ciphers: "HIGH:!aNULL:!MD5"
+              prefer_server_ciphers: true
+            reverse_proxy:
+              locations:
+                backend:
+                  location: "/"
+                  proxy_set_header:
+                    header_host:
+                      name: Host
+                      value: $host
+                    header_upgrade:
+                      name: Upgrade
+                      value: $http_upgrade
+                    header_connection:
+                      name: Connection
+                      value: $connection_upgrade
+                    header_x_forwarded_for:
+                      name: X-Forwarded-For
+                      value: $proxy_add_x_forwarded_for
+                  proxy_http_version: 1.1
+                  proxy_pass: http://speckleserver
+                  proxy_read_timeout: 86400

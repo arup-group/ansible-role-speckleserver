@@ -200,6 +200,16 @@ Example Playbook
     speckleserver_version: "1.5.2"
 ```
 
+
+Nginx webserver integration
+---------------------------
+
+You will need the `nginxinc.nginx` role from Galaxy (this should be installed per requirements.yml anyway :D)
+
+An example playbook: [speckle-plus-nginx.yml](speckle-plus-nginx.yml)
+
+You can of course move the vars into your group\_vars entry alongside the speckle\_\* settings if you prefer.
+
 License
 -------
 
