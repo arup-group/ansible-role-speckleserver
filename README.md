@@ -138,11 +138,7 @@ How to run
 
 Ensure you have Ansible set up on your machine appropriately and the role is unpacked in a directory listed in roles_path
 
-A playbook for setting up with nginx is provided: (`speckleserver-with-nginx-playbook.yml`).
-
-Copy this to a new file eg. site-speckle.yml; tune the vars as required.
-
-__WARNING: Hosts / Virtual hosts in this playbook are only given as placeholders and will not work out-of-the-box. Customise them before running the playbook!__
+Copy the `site.yml` file to a new file eg. `site-speckle.yml`; tune the hosts and vars stanzas as required.
 
 Note: You can also cut and drop the vars: stanza into group_vars/ or host_vars as you require.
 
@@ -181,7 +177,7 @@ Supported distros for such testing, courtesy of Jeff Geerling's molecule-testing
 TODO
 ----
 
-* Better vhost examples.
+* Better vhost examples (nginx vhost behind an SSL-terminating loadbalancer for example)
 
 Example Playbook
 ----------------
