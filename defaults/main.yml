@@ -28,5 +28,5 @@ speckleserver_local_auth: true
 speckleserver_auth0_auth: false
 speckleserver_azuread_auth: false
 speckleserver_github_auth: false
-speckleserver_wl_redirect_urls: "http://localhost:5050,https://app.speckle.systems,https://excel.speckle.sysems"
+speckleserver_wl_redirect_urls: "http://localhost:5050,https://app.speckle.systems,https://excel.speckle.systems,http://carbon.arup.com/,https://carbon.arup.com/"
 speckleserver_allow_insecure_redirects: false
