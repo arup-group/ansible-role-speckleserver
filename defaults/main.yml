@@ -30,3 +30,4 @@ speckleserver_azuread_auth: false
 speckleserver_github_auth: false
 speckleserver_wl_redirect_urls: "http://localhost:5050,https://app.speckle.systems,https://excel.speckle.systems,http://carbon.arup.com/,https://carbon.arup.com/"
 speckleserver_allow_insecure_redirects: false
+speckleserver_api_version: "1.x.x"

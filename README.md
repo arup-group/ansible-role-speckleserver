@@ -74,6 +74,8 @@ Role Variables
 
 `speckleserver_allow_insecure_redirects`: Allow insecure, unencrypted redirects. Not recommended unless you know what you're doing. Boolean value, sensibly defaults to false
 
+`speckleserver_api_version`: Declare the supported SpeckleServer API version. Should be `1.x.x` for 1.9.x, and `2.x.x` for 2.x and above. String value, defaults to `1.x.x`
+
 External User Authentication
 ----------------------------
 

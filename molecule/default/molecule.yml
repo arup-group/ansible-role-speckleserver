@@ -4,11 +4,8 @@ dependency:
   role-file: requirements.yml
 driver:
   name: docker
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
-  flake8
+lint:
+  name: yamllint
 platforms:
   - name: instance
     image: geerlingguy/docker-${MOLECULE_DISTRO:-centos7}-ansible:latest
@@ -19,5 +16,7 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
-verifier:
-  name: testinfra
+  lint:
+    name: ansible-lint
+    options:
+      x: ["401"]
