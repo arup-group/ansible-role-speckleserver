@@ -1,3 +1,228 @@
+2020-06-29  Michael Fleming <michael.fleming@arup.com>
+
+	* CONTRIBUTING.md: Add contributing document
+
+2020-06-29  Michael Fleming <michael.fleming@arup.com>
+
+	* .yamllint, README.md, defaults/main.yml,
+	molecule/default/converge.yml, molecule/default/molecule.yml,
+	molecule/default/playbook.yml, templates/speckleserver-env.j2: * Adding Speckle Server version API env var in template * Fix the Molecule test suite by setting requirements to molecule
+	2.22 support (not 3.x as it's broken) * Update defaults and README as appropriate.
+
+2020-02-28  Michael Fleming <michael.fleming@arup.com>
+
+	* defaults/main.yml, molecule/default/converge.yml,
+	molecule/default/molecule.yml, molecule/default/playbook.yml: Add
+	carbon.arup.com to default redirect whitelists FIXME: Converting test suite to molecule 3.x, requires some further
+	updates / fixes.
+
+2020-01-21  Michael Fleming <michael.fleming@arup.com>
+
+	* defaults/main.yml, requirements.yml: Add excel.speckle.works to
+	default redirection whitelist. Small linter-related fixes
+
+2019-12-04  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Readme clarifications
+
+2019-12-03  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md, requirements.yml, speckle-plus-nginx.yml: Add initial
+	support for installing an nginx frontend and vhost for Speckle (in
+	the "speckle-plus-nginx.yml" playbook) Add a requirements.yml file
+	to assist with the above.  Update README to reflect these changes.
+
+2019-11-12  Michael Fleming <michael.fleming@arup.com>
+
+	* tasks/speckleadmin-install.yml: fix privilege drop in admin
+	install
+
+2019-11-12  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Update README
+
+2019-11-12  Michael Fleming <michael.fleming@arup.com>
+
+	* molecule/default/playbook.yml, tasks/speckleadmin-install.yml: Fix
+	speckleadmin plugin install plays
+
+2019-11-12  Michael Fleming <michael.fleming@arup.com>
+
+	* molecule/default/molecule.yml, tasks/speckleadmin-install.yml: 
+	Lint and test fixes
+
+2019-11-12  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md, defaults/main.yml, tasks/main.yml,
+	tasks/speckleadmin-install.yml: Add a task to install SpeckleAdmin
+	from git
+
+2019-09-26  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Recommend users don't put a trailing slash on canonical
+	url, breaks 1.8.0 accounts route
+
+2019-09-25  Michael Fleming <michael.fleming@arup.com>
+
+	* tasks/main.yml: Drop privileges to the speckle user when doing an
+	npm install
+
+2019-09-24  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md, templates/speckleserver-env.j2: * After some reverse engineering and component investigation, update
+	the Azure Identity metadata template entry (AZURE_AD_METADATA) to
+	construct a full URL out of the initially provided metadata (tenant
+	GUID) and the standard tenant-specific v2 OIDC URL.  * Update the README to provide the end user a bit more guidance.
+
+2019-09-24  Michael Fleming <michael.fleming@arup.com>
+
+	* templates/speckleserver-env.j2: Fix idiot typo in Azure ID
+	metadata template settings, per Keiran Trainor
+
+2019-09-11  Michael Fleming <michael.fleming@arup.com>
+
+	* : commit 93a78297a60f0c0085505601ce8c53f814977dc8 Author: Michael
+	Fleming <michael.fleming@arup.com> Date:   Mon Sep 9 17:08:05 2019
+	+1000
+
+2019-09-09  Michael Fleming <michael.fleming@arup.com>
+
+	* templates/speckleserver-env.j2: finish max_procs work - we default
+	it now so taking out the if..else logic
+
+2019-09-09  Michael Fleming <michael.fleming@arup.com>
+
+	* defaults/main.yml: Add max_procs default (1 process per vCPU)
+
+2019-09-09  Michael Fleming <michael.fleming@arup.com>
+
+	* tasks/main.yml: Break out ancient migration tasks to own subtask
+	set
+
+2019-09-09  Michael Fleming <michael.fleming@arup.com>
+
+	* tasks/main.yml, tasks/migrate.yml: Break out ancient migration
+	tasks to own subtask set
+
+2019-09-06  Michael Fleming <michael.fleming@arup.com>
+
+	* templates/speckleserver-env.j2: Add max-procs setting in env
+	template
+
+2019-08-30  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md, templates/speckleserver-env.j2: Make MAX_PROCS tunable
+	via an optional variable (see
+	https://github.com/speckleworks/SpeckleServer/issues/157 )
+
+2019-08-26  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Fix broken documentation
+
+2019-08-26  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Explictly tell md it's yaml
+
+2019-08-26  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Explictly tell md it's yaml
+
+2019-08-26  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Fix broken markup.
+
+2019-08-26  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md, tasks/main.yml: Major refactoring * The role no longer installs SpeckleAdmin by default, as it doesn't
+	work and is likely to be spun off into it's own application * 1.7 introduced third party authentication options (Auth0, Azure
+	Active Directory and Github users) alongside local auth (default).
+	Extend variables and template to accommodate this.  * (Internals) internal references to speckleserver_github in the
+	tasks have been renamed to speckleserver_ghub to avoid variable
+	clashes.  * Calls to github for version metdata are called earlier in the
+	play.
+
+2019-08-26  Michael Fleming <michael.fleming@arup.com>
+
+	* defaults/main.yml: Default public rego to false
+
+2019-08-26  Michael Fleming <michael.fleming@arup.com>
+
+	* defaults/main.yml, templates/speckleserver-env.j2: * Add authentication options for local / AzureAD / Auth0 / Github
+	based authentication shipped with 1.7.1 * Add local redirects and whitelisted proxy options.
+
+2019-08-26  Michael Fleming <michael.fleming@arup.com>
+
+	* : commit 54f1a8c51e421f373751294e40b2f47d2609945f Author: Michael
+	Fleming <michael.fleming@arup.com> Date:   Mon Aug 26 12:01:12 2019
+	+1000
+
+2019-08-19  Michael Fleming <michael.fleming@arup.com>
+
+	* files/speckleserver.service: Prefix node binary path with
+	universally suitable one and keep systemd service happy.
+
+2019-08-16  Michael Fleming <michael.fleming@arup.com>
+
+	* files/speckleserver.service: Let systemd determine path rather
+	than hardcode /bin
+
+2019-08-16  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md, tasks/main.yml, templates/speckleserver-env.j2: 
+	Refactored email sending templates
+
+2019-08-16  Michael Fleming <michael.fleming@arup.com>
+
+	* templates/speckleserver-env.j2: Remove redundant default in
+	template
+
+2019-08-16  Michael Fleming <michael.fleming@arup.com>
+
+	* defaults/main.yml, templates/speckleserver-env.j2: Fix smtp port
+	settings in template.
+
+2019-08-16  Michael Fleming <michael.fleming@arup.com>
+
+	* templates/speckleserver-env.j2: Fix template variable error
+
+2019-08-16  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Update readme
+
+2019-08-16  Michael Fleming <michael.fleming@arup.com>
+
+	* defaults/main.yml, molecule/default/playbook.yml,
+	templates/speckleserver-env.j2: 1.2.3 Add extra template options for 1.6.x and up - First created user is admin (boolean toggle) - Speckle now can send email (default localhost:25)
+
+2019-08-02  Michael Fleming <michael.fleming@arup.com>
+
+	* tasks/main.yml: A hack added to remote any errant .npmrc files in
+	the unpacked app directory.  This appears to have slipped into 1.6.2
+	and breaks npm installs.
+
+2019-05-31  Michael Fleming <michael.fleming@arup.com>
+
+	* README.md: Small doco cleanup
+
+2019-05-31  Michael Fleming <michael.fleming@arup.com>
+
+	* tasks/install-Debian.yml, tasks/install-Ubuntu.yml,
+	tasks/main.yml, vars/Amazon.yml, vars/CentOS.yml, vars/Debian.yml,
+	vars/RedHat.yml, vars/Ubuntu.yml, vars/default.yml, vars/main.yml: * 1.2.1 * Fix installation on Debian / Ubuntu   - Ensure correct dependencies for NodeSource nodejs installs   - Ensure repo key install comes before repo install.    - Handling of slightly different systemd unit locations between
+	  distro variants
+
+2019-05-30  Michael Fleming <michael.fleming@arup.com>
+
+	* molecule/default/playbook.yml, tasks/main.yml: - Add a decent measure of resilience vs network fetch failures - Overhaul version checks and tarball fetch plays to make them
+	reliable and consistent
+
+2019-05-27  Michael Fleming <michael.fleming@arup.com>
+
+	* CHANGELOG, README.md, defaults/main.yml,
+	templates/speckleserver-env.j2: Make the maximum stream request size
+	a tunable / variable. 10mb kept as default Add the ansible-managed banner to .env to stop curiousen sysadmin
+	from gefingerpoken and breaken das deploy.
+
 2019-05-24  Michael Fleming <michael.fleming@arup.com>
 
 	* README.md: Fix documentation typo, remind myself to add some
