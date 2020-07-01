@@ -1,1 +1,2 @@
 molecule/default/tests/__pycache__/
+*.sh
