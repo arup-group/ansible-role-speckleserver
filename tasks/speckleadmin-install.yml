@@ -31,5 +31,14 @@
   become_user: speckle
   when:
     - plugindir.stat.isdir
+
+- name: "Run the production optimisation process for SpeckleAdmin"
+  command: npm run build
+  args:
+    chdir: "/home/speckle/speckleserver/plugins/SpeckleAdmin/"
+  become: yes
+  become_user: speckle
+  when:
+    - plugindir.stat.isdir
   notify:
     - "Restart SpeckleServer"
