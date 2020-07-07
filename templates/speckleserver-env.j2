@@ -135,4 +135,4 @@ ALLOW_INSECURE_REDIRECTS={{ speckleserver_allow_insecure_redirects | bool | lowe
 
 # Which SpeckleServer API version are we supporting?
 # This should be 1.1.x for versions =< 2.0.0, and 2.x.x for >= 2.0.0
-SPECKLE_API_VERSION="{{ speckleserver_api_version | default("1.x.x") }}"
+SPECKLE_API_VERSION="{{ speckleserver_ghub.json.tag_name }}"
