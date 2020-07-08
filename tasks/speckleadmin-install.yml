@@ -18,6 +18,7 @@
   git:
     repo: "https://github.com/speckleworks/SpeckleAdmin.git"
     dest: "/home/speckle/speckleserver/plugins/SpeckleAdmin/"
+    force: true
   become: yes
   become_user: speckle
   when:
