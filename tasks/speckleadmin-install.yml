@@ -7,19 +7,44 @@
     follow: yes
   register: plugindir
 
-- name: "Install git command line tool"
-  package:
-    name: "git"
-    state: present
+- name: "Get release info for Speckleserver from github"
+  uri:
+    url: |
+      https://api.github.com/repos/speckleworks/SpeckleServer/releases/{{ speckleserver_api_stem }}
+    return_content: true
+  register: speckleadmin_ghub
+  until: speckleadmin_ghub.json.tarball_url is defined
+  retries: 5
+  delay: 10
+
+- name: "INFO: Semantic release version info for the latest release of SpeckleAdmin"
+  debug:
+    msg: "FYI: The latest release points to version {{ speckleadmin_ghub.json.tag_name }}"
+  when: speckleadmin_version == "latest"
+
+- name: "Ensure that the speckleAdmin plugin subdirectory exists"
+  file:
+    path: "/home/speckle/speckleserver-{{ speckleserver_version }}/SpeckleAdmin/"
+    state: directory
+    owner: speckle
+    group: speckle
+    mode: 0755
   when:
     - plugindir.stat.isdir
 
-- name: "Pull SpeckleAdmin from Github"
-  git:
-    repo: "https://github.com/speckleworks/SpeckleAdmin.git"
-    dest: "/home/speckle/speckleserver/plugins/SpeckleAdmin/"
-  become: yes
-  become_user: speckle
+- name: "Install the SpeckleAdmin plugin codebase"
+  unarchive:
+    src: "{{ speckleadmin_ghub.json.tarball_url }}"
+    dest: "/home/speckle/{{ speckleserver_version }}/plugins/SpeckleAdmin/"
+    owner: speckle
+    group: speckle
+    remote_src: yes
+    extra_opts: [ --strip-components=1 ]
+    creates: "/home/speckle/speckleserver-{{ speckleserver_version }}/plugins/SpeckleAdmin/speckle-plugin-manifest.json"
+  register: unpacked_admin
+  until: unpacked_admin is succeeded
+  retries: 5
+  delay: 10
   when:
     - plugindir.stat.isdir
 
