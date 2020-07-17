@@ -7,10 +7,23 @@
     follow: yes
   register: plugindir
 
+- name: "Release info: Where to find release info (set version)"
+  set_fact:
+    speckleadmin_api_stem: "tags/v{{ speckleserver_admin_version }}"
+
+- name: "Release info: Where to find release info (latest)"
+  set_fact:
+    speckleadmin_api_stem: "latest"
+  when: speckleserver_admin_version == "latest"
+
+- name: "INFO: Version of Speckleserver we are requesting"
+  debug:
+    msg: "We are planning to install the {{speckleserver_version }} release of SpeckleServer"
+
 - name: "Get release info for Speckleserver from github"
   uri:
     url: |
-      https://api.github.com/repos/speckleworks/SpeckleServer/releases/{{ speckleserver_api_stem }}
+      https://api.github.com/repos/speckleworks/SpeckleServer/releases/{{ speckleadmin_api_stem }}
     return_content: true
   register: speckleadmin_ghub
   until: speckleadmin_ghub.json.tarball_url is defined
@@ -20,7 +33,7 @@
 - name: "INFO: Semantic release version info for the latest release of SpeckleAdmin"
   debug:
     msg: "FYI: The latest release points to version {{ speckleadmin_ghub.json.tag_name }}"
-  when: speckleadmin_version == "latest"
+  when: speckleserver_adamin_version == "latest"
 
 - name: "Ensure that the speckleAdmin plugin subdirectory exists"
   file:

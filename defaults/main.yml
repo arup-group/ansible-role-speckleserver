@@ -1,7 +1,8 @@
 ---
 speckleserver_migrate: false
-speckleserver_admin: false
+speckleserver_admin: true
 speckleserver_version: "latest"
+speckleserver_admin_version: "1.9.9"
 speckleserver_server_name: "Test SpeckleServer Please Ignore"
 speckleserver_url: "http://localhost/"
 speckleserver_public_streams: true
