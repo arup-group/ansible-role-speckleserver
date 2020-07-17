@@ -3,7 +3,7 @@
 #
 - name: "Check if SpeckleServer is installed correctly"
   stat:
-    path: "/home/speckle/speckleserver/plugins/"
+    path: "/home/speckle/speckleserver-{{ speckleserver_version }}/plugins/"
     follow: yes
   register: plugindir
 
@@ -35,7 +35,7 @@
 - name: "Install the SpeckleAdmin plugin codebase"
   unarchive:
     src: "{{ speckleadmin_ghub.json.tarball_url }}"
-    dest: "/home/speckle/{{ speckleserver_version }}/plugins/SpeckleAdmin/"
+    dest: "/home/speckle/speckleserver-{{ speckleserver_version }}/plugins/SpeckleAdmin/"
     owner: speckle
     group: speckle
     remote_src: yes
@@ -50,7 +50,7 @@
 
 - name: "Install the nodejs modules required for the plugin"
   npm:
-    path: "/home/speckle/speckleserver/plugins/SpeckleAdmin/"
+    path: "/home/speckle/speckleserver-{{ speckleserver_version }}/plugins/SpeckleAdmin/"
     state: present
   become: yes
   become_user: speckle
@@ -60,7 +60,7 @@
 - name: "Run the production optimisation process for SpeckleAdmin"
   command: npm run build
   args:
-    chdir: "/home/speckle/speckleserver/plugins/SpeckleAdmin/"
+    chdir: "/home/speckle/speckleserver-{{ speckleserver_version }}/plugins/SpeckleAdmin/"
   become: yes
   become_user: speckle
   when:
