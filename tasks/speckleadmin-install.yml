@@ -7,6 +7,16 @@
     follow: yes
   register: plugindir
 
+- name: "Ensure that the speckleAdmin plugin subdirectory exists"
+  file:
+    path: "/home/speckle/speckleserver-{{ speckleserver_version }}/plugins/SpeckleAdmin/"
+    state: directory
+    owner: speckle
+    group: speckle
+    mode: 0755
+  when:
+    - plugindir.stat.isdir
+
 - name: "Release info: Where to find release info (set version)"
   set_fact:
     speckleadmin_api_stem: "tags/v{{ speckleserver_admin_version }}"
@@ -18,12 +28,12 @@
 
 - name: "INFO: Version of Speckleserver we are requesting"
   debug:
-    msg: "We are planning to install the {{speckleserver_version }} release of SpeckleServer"
+    msg: "We are planning to install the {{speckleserver_admin_version }} release of SpeckleAdmin"
 
 - name: "Get release info for Speckleserver from github"
   uri:
     url: |
-      https://api.github.com/repos/speckleworks/SpeckleServer/releases/{{ speckleadmin_api_stem }}
+      https://api.github.com/repos/speckleworks/SpeckleAdmin/releases/{{ speckleadmin_api_stem }}
     return_content: true
   register: speckleadmin_ghub
   until: speckleadmin_ghub.json.tarball_url is defined
@@ -33,17 +43,8 @@
 - name: "INFO: Semantic release version info for the latest release of SpeckleAdmin"
   debug:
     msg: "FYI: The latest release points to version {{ speckleadmin_ghub.json.tag_name }}"
-  when: speckleserver_adamin_version == "latest"
+  when: speckleserver_admin_version == "latest"
 
-- name: "Ensure that the speckleAdmin plugin subdirectory exists"
-  file:
-    path: "/home/speckle/speckleserver-{{ speckleserver_version }}/SpeckleAdmin/"
-    state: directory
-    owner: speckle
-    group: speckle
-    mode: 0755
-  when:
-    - plugindir.stat.isdir
 
 - name: "Install the SpeckleAdmin plugin codebase"
   unarchive:
