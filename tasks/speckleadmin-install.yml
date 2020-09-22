@@ -33,7 +33,7 @@
 - name: "Get release info for Speckleserver from github"
   uri:
     url: |
-      https://api.github.com/repos/speckleworks/SpeckleAdmin/releases/{{ speckleadmin_api_stem }}
+      https://api.github.com/repos/arup-group/SpeckleAdmin/releases/{{ speckleadmin_api_stem }}
     return_content: true
   register: speckleadmin_ghub
   until: speckleadmin_ghub.json.tarball_url is defined
